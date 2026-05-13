@@ -1,0 +1,42 @@
+:root {
+  --white: #fff;
+  --logo: blueviolet;
+  --text : rgba(0,0,0,0);
+  --gray: rgb(139, 139, 139);
+  --highlight: rgba(81, 81, 247, 0.87);
+  --bordercolor: rgb(221, 221, 221);
+  --medium: rgb(255, 178, 34);
+  --low: rgb(47, 161, 47);
+  --boxshadow: rgba(0, 0, 0, 0.2);
+}
+*{
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  background-color: var(--white);
+}
+
+.warning{
+  color: red;
+}
+.taskform{
+  width: 30%; 
+  border: 1px solid blue;
+}
+
+.entireBody{
+  width: 100%;
+}
+.title{
+  width: 100%;
+  border: 1px solid red;
+}
+.entireBody .line{
+  width: 30px;
+  background-color: blue;
+  height: 20px;
+}

@@ -1,0 +1,114 @@
+header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--white);
+    box-shadow: 0 2px 5px var(--boxshadow);
+}
+
+.logo {
+    font-size: 1.5em;
+    color: white;
+    width: 1.6em;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 8px;
+    background-color: var(--highlight);
+}
+
+.logoTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding-left: 4em;
+}
+
+.logoTitle h2 {
+    font-size: 1.4em;
+}
+
+.navLinks ul {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 3em;
+    padding-right: 4em;
+}
+
+.navLinks ul li {
+    color: var(--gray);
+    font-size: 1.1em;
+    padding: 0.2em 0.5em;
+    list-style-type: none;
+}
+
+.navLinks .highLight {
+    color: rgba(81, 81, 247, 0.87);
+    background-color: rgb(230, 225, 225);
+    border-radius: 6px;
+}
+
+/* Hamburger menu */
+.menuBar {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding-right: 1em;
+    cursor: pointer;
+}
+
+.menuLine {
+    width: 25px;
+    height: 3px;
+    background-color: black;
+    border-radius: 2px;
+}
+
+
+/* Mobile view */
+@media (max-width: 768px) {
+
+    .logoTitle {
+        padding-left: 1em;
+    }
+
+    .menuBar {
+        display: flex;
+    }
+
+    .navLinks {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 2px 5px var(--boxshadow);
+        padding: 1em 0;
+    }
+
+    /*  close symbol X */
+    .active .menuLine:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 6px);
+    }
+    .active .menuLine:nth-child(2) {
+        opacity: 0;
+    }
+    .active .menuLine:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    .showMenu {
+        display: block;
+    }
+
+    .navLinks ul {
+        flex-direction: column;
+        gap: 1em;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+    }
+}
