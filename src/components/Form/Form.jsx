@@ -1,7 +1,8 @@
 import styles from "./Form.module.css"
 import { useState } from "react"
 import CustomInput from "./CustomInput"
-import CustomButton from "./CustomButton"
+import CustomButton from "../Buttons/CustomButton"
+import buttonStyles from "../Buttons/Button.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import icons from "../../utils/Fontawesome"
 import Validate from "./Validation"
@@ -64,9 +65,30 @@ function Form({
         alert(mode === "edit" ? "Task Updated Successfully" : "Task Created Successfully")
     }
 
+    function handleReset() {
+        setData({
+            taskName: "",
+            assigneeName: "",
+            assigneeEmail: "",
+            dueDate: "",
+            dueTime: "",
+            hours: "",
+            url: "",
+            description: "",
+            progress: 0,
+            priority: "",
+            taskType: [],
+            statusType: ""
+        })
+        setErrors({})
+    }
+
     return (
         <form className={styles.taskform} onSubmit={handleSubmit}>
-            <h3>{mode === "edit" ? " Edit Task" : "Create New Task"}</h3>
+            <h3 className={styles.formTitle}>
+                <FontAwesomeIcon icon={icons.note} className={styles.titleIcon}/>
+                {mode === "edit" ? " Edit Task" : "Create New Task"}
+            </h3>
 
             <CustomInput
                 id="taskName"
@@ -193,21 +215,19 @@ function Form({
             </div>
 
             {/* buttons  */}
-            <div className="task-buttons">
+            <div className={buttonStyles.taskButtons}>
                 <CustomButton
                     text={mode === "edit" ? "Update Task" : "Create Task"}
                     type="submit"
-                    className={mode === "edit" ? "update-btn" : "create-btn"}
+                    className={mode === "edit" ? "updateBtn" : "createBtn"}
                     icon={icons.tick}
-
                 />
 
                 <CustomButton
                     text={mode === "edit" ? "Cancel" : "Reset"}
-                    type={mode === "edit" ? "button" : "reset"}
-                    className={mode === "edit" ? "cancel-btn" : "reset-btn"}
-
-                    icon={icons.xmark}
+                    type="button"
+                    className={mode === "edit" ? "cancelBtn" : "resetBtn"}
+                    icon={icons.xmark} onClick={handleReset}
                 />
 
             </div>
