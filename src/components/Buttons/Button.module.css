@@ -1,0 +1,68 @@
+.taskButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0.8em 0 1.5em 0;
+    padding: 0 1em;
+    gap: 1em;
+}
+
+.taskButtons button {
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3em;
+    transition: 0.2s ease;
+    padding: 1.2em 0.5em;
+}
+
+.createBtn,
+.updateBtn {
+    width: 45%;
+    padding: 1em 0;
+    color: white;
+    background-color: var(--highlight);
+}
+
+.createBtn:hover,
+.updateBtn:hover {
+    background-color: rgb(61, 61, 230);
+}
+
+.resetBtn,
+.cancelBtn {
+    width: 30%;
+    padding: 1em 0;
+    color: black;
+    background-color: rgb(231, 231, 231);
+    border: 1px solid rgb(231, 231, 231);
+}
+
+.resetBtn:hover,
+.cancelBtn:hover {
+    background-color: rgb(210, 210, 210);
+}
+.icon{
+    font-size: 1.2em;
+}
+@media (max-width: 600px) {
+    .taskButtons {
+        padding: 0 1em;
+    }
+
+    .createBtn,
+    .updateBtn {
+        width: 55%;
+        padding: 0.9em 0;
+    }
+
+    .resetBtn,
+    .cancelBtn {
+        width: 35%;
+        padding: 0.9em 0;
+    }
+}
