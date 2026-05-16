@@ -1,0 +1,108 @@
+.taskform {
+    margin: 0 0.5em;
+    border: 1px solid red;
+}
+
+.taskform h3 {
+    margin: 1em 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+input[type="url"],
+input[type="range"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 0.4em;
+    border: 2px solid var(--bordercolor);
+    border-radius: 5px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="number"]:focus,
+input[type="url"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--highlight);
+}
+
+
+.inputBox {
+    position: relative;
+}
+
+textarea {
+    min-height: 90px;
+    padding: 1em 0.75em;
+    resize: none;
+    box-sizing: border-box;
+}
+textarea::placeholder {
+    font-size: 16px;
+    transform: translateY(15px);
+    display: block;
+}
+.inputRange input[type="range"] {
+    padding: 0;
+    margin: 0;
+}
+
+.inputRange p {
+    margin: 0;
+    text-align: center;
+}
+
+.taskTypes p,
+.statusTypes p {
+    margin: 0 0 0.5em 0;
+    padding: 0;
+}
+
+.taskTypes input[type="checkbox"],
+.statusTypes input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-bottom: 0.3em;
+}
+
+/*floating label*/
+.inputBox .floatLabel {
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    padding: 0 3px;
+    color: var(--highlight);
+    font-size: 12px;
+    background-color: var(--white);
+}
+
+.checkRadioWrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    margin: 0 0 0.5em;
+    margin-right: 1.5em;
+}
+
+
+/* autofill blue bg remove for input fields*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    box-shadow: 0 0 0px 1000px var(--white) inset;
+}
+
+.errorMessage {
+    min-height: 20px;
+}
