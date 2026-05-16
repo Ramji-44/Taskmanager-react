@@ -1,4 +1,4 @@
-import { faHeart, faTrash, faCircleExclamation, faCheck, faXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faTrash, faCircleExclamation, faCheck, faXmark, faPenToSquare,faClipboardList } from '@fortawesome/free-solid-svg-icons'
 
 const icons = {
   heart: faHeart,
@@ -6,7 +6,9 @@ const icons = {
   warning: faCircleExclamation,
   tick: faCheck,
   xmark: faXmark,
-  edit: faPenToSquare
+  edit: faPenToSquare,
+  pen : faPenToSquare,
+  note : faClipboardList
 }
 
 export default icons
