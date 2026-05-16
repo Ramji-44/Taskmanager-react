@@ -1,6 +1,5 @@
 .taskform {
     margin: 0 0.5em;
-    border: 1px solid red;
 }
 
 .taskform h3 {
@@ -105,4 +104,8 @@ input:-webkit-autofill:focus {
 
 .errorMessage {
     min-height: 20px;
+}
+.titleIcon{
+    font-size: 1em;
+    color: #F48F68;
 }
