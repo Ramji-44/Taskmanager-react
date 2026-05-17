@@ -1,64 +1,48 @@
 import styles from "./Form.module.css"
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import CustomInput from "./CustomInput"
 import CustomButton from "../Buttons/CustomButton"
 import buttonStyles from "../Buttons/Button.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClipboardList, faCheck, faXmark  } from "@fortawesome/free-solid-svg-icons"
+import { faClipboardList, faCheck, faXmark } from "@fortawesome/free-solid-svg-icons"
 import Validate from "./Validation"
 
-function Form({
-    mode = "create",
-    initialData
-}) {
+const initialFormData = {
+    taskName: "",
+    assigneeName: "",
+    assigneeEmail: "",
+    dueDate: "",
+    dueTime: "",
+    hours: "",
+    url: "",
+    description: "",
+    progress: 0,
+    priority: "",
+    taskType: [],
+    statusType: ""
+}
 
-    console.log("Form Re-rendered")
-    const [data, setData] = useState(
+function Form({ mode = "create", initialData }) {
 
-        initialData || {
-            taskName: "",
-            assigneeName: "",
-            assigneeEmail: "",
-            dueDate: "",
-            dueTime: "",
-            hours: "",
-            url: "",
-            description: "",
-            progress: 0,
-            priority: "",
-            taskType: [],
-            statusType: ""
-        }
-    )
+    console.log("form .......................................  re-renders")
+    const [data, setData] = useState(initialData || initialFormData)
 
     const [errors, setErrors] = useState({})
 
-    function handleChange(e) {
+    const handleChange = useCallback((e) => {
         const { name, value, type, checked } = e.target
 
-        if (type === "checkbox") {
-            let updatedtaskType = [...data.taskType]
+        setData((prev) => {
+            if (type === "checkbox") {
+                const updatedTaskType = checked ? [...prev.taskType, value] : prev.taskType.filter((item) => item !== value)
 
-            if (checked) {
-                updatedtaskType.push(value)
+                return { ...prev, taskType: updatedTaskType }
             }
-            else {
-                updatedtaskType =
-                    updatedtaskType.filter(
-                        (item) => item !== value
-                    )
-            }
-            setData({
-                ...data,
-                taskType: updatedtaskType
-            })
-            return
-        }
-        // inputs
-        setData({ ...data, [name]: value })
-    }
+            // other inputs
+            return { ...prev, [name]: value }
+        })
+    }, [])  // useCallback
 
-    // submit
     function handleSubmit(e) {
         e.preventDefault()
         console.log(data)
@@ -66,27 +50,15 @@ function Form({
     }
 
     function handleReset() {
-        setData({
-            taskName: "",
-            assigneeName: "",
-            assigneeEmail: "",
-            dueDate: "",
-            dueTime: "",
-            hours: "",
-            url: "",
-            description: "",
-            progress: 0,
-            priority: "",
-            taskType: [],
-            statusType: ""
-        })
+        setData(initialFormData)
         setErrors({})
     }
 
     return (
         <form className={styles.taskform} onSubmit={handleSubmit}>
+
             <h3 className={styles.formTitle}>
-                <FontAwesomeIcon icon={faClipboardList} className={styles.titleIcon}/>
+                <FontAwesomeIcon icon={faClipboardList} className={styles.titleIcon} />
                 {mode === "edit" ? " Edit Task" : "Create New Task"}
             </h3>
 
@@ -102,8 +74,8 @@ function Form({
                 {errors.taskName && <Validate />}
             </div>
 
-
-            <CustomInput id="assigneeName" name="assigneeName" placeholder="Assignee Name *" value={data.assigneeName} onChange={handleChange} />
+            <CustomInput
+                id="assigneeName" name="assigneeName" placeholder="Assignee Name *" value={data.assigneeName} onChange={handleChange} />
             <div className={styles.errorMessage}>
                 {errors.assigneeName && <Validate />}
             </div>
@@ -129,12 +101,13 @@ function Form({
 
             <div className={styles.inputBox}>
                 <label className={styles.floatLabel}>Priority Level*</label>
-                <select name="Priority" value={data.priority} onChange={handleChange}>
+                <select name="priority" value={data.priority} onChange={handleChange}>
                     <option value="">Select Priority</option>
                     <option value="low">Low Priority</option>
                     <option value="medium">Medium Priority</option>
                     <option value="high">High Priority</option>
                 </select>
+
                 <div className={styles.errorMessage}>
                     {errors.priority && <Validate />}
                 </div>
@@ -147,7 +120,8 @@ function Form({
                 </div>
             </div>
 
-            <CustomInput id="url" name="url" type="url" placeholder="Project URL*" value={data.url} onChange={handleChange} />
+            <CustomInput
+                id="url" name="url" type="url" placeholder="Project URL*" value={data.url} onChange={handleChange} />
             <div className={styles.errorMessage}>
                 {errors.url && <Validate />}
             </div>
@@ -159,32 +133,25 @@ function Form({
 
             <div className={styles.inputRange}>
                 <span>Task Progress*</span>
+
                 <CustomInput id="progress" name="progress" type="range" min="0" max="100" step="1" value={data.progress} onChange={handleChange} />
                 <p>{data.progress}%</p>
+
             </div>
+
             <div className={styles.errorMessage}>
                 {errors.progress && <Validate />}
             </div>
 
             <div className={styles.taskTypes}>
                 <p>Task Type*</p>
-                <CustomInput id="bug" type="checkbox" name="taskType" value="BugFix"
-                    checked={data.taskType.includes("BugFix")}
-                    onChange={handleChange}
-                    endLabel="Bug Fix"
-                />
 
-                <CustomInput id="feature" type="checkbox" name="taskType" value="Feature"
-                    checked={data.taskType.includes("Feature")}
-                    onChange={handleChange}
-                    endLabel="Feature"
-                />
+                <CustomInput id="bug" type="checkbox" name="taskType" value="BugFix" checked={data.taskType.includes("BugFix")} onChange={handleChange} endLabel="Bug Fix" />
 
-                <CustomInput id="enhancement" type="checkbox" name="taskType" value="Enhancement"
-                    checked={data.taskType.includes("Enhancement")}
-                    onChange={handleChange}
-                    endLabel="Enhancement"
-                />
+                <CustomInput id="feature" type="checkbox" name="taskType" value="Feature" checked={data.taskType.includes("Feature")} onChange={handleChange} endLabel="Feature" />
+
+                <CustomInput id="enhancement" type="checkbox" name="taskType" value="Enhancement" checked={data.taskType.includes("Enhancement")} onChange={handleChange} endLabel="Enhancement" />
+
                 <div className={styles.errorMessage}>
                     {errors.taskType && <Validate />}
                 </div>
@@ -192,29 +159,16 @@ function Form({
 
             <div className={styles.statusTypes}>
                 <p>Status*</p>
-                <CustomInput id="pending" type="radio" name="statusType" value="Pending"
-                    checked={data.statusType === "Pending"}
-                    onChange={handleChange}
-                    endLabel="Pending"
-                />
+                <CustomInput id="pending" type="radio" name="statusType" value="Pending" checked={data.statusType === "Pending"} onChange={handleChange} endLabel="Pending" />
 
-                <CustomInput id="inprogress" type="radio" name="statusType" value="In Progress"
-                    checked={data.statusType === "In Progress"}
-                    onChange={handleChange}
-                    endLabel="In Progress"
-                />
+                <CustomInput id="inprogress" type="radio" name="statusType" value="In Progress" checked={data.statusType === "In Progress"} onChange={handleChange} endLabel="In Progress" />
 
-                <CustomInput id="completed" type="radio" name="statusType" value="Completed"
-                    checked={data.statusType === "Completed"}
-                    onChange={handleChange}
-                    endLabel="Completed"
-                />
+                <CustomInput id="completed" type="radio" name="statusType" value="Completed" checked={data.statusType === "Completed"} onChange={handleChange} endLabel="Completed" />
                 <div className={styles.errorMessage}>
-                    {errors.statusType || <Validate />}
+                    {errors.statusType && <Validate />}
                 </div>
             </div>
 
-            {/* buttons  */}
             <div className={buttonStyles.taskButtons}>
                 <CustomButton
                     text={mode === "edit" ? "Update Task" : "Create Task"}
@@ -227,11 +181,12 @@ function Form({
                     text={mode === "edit" ? "Cancel" : "Reset"}
                     type="button"
                     className={mode === "edit" ? "cancelBtn" : "resetBtn"}
-                    icon={faXmark} onClick={handleReset}
+                    icon={faXmark}
+                    onClick={handleReset}
                 />
-
             </div>
-        </form>
+        </form >
     )
 }
+
 export default Form
