@@ -1,0 +1,263 @@
+.tasksContainer {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem 1.5em;
+}
+
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0 0 1em 0;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 0;
+}
+
+.faCircleCheck {
+    color: #22c55e;
+    font-size: 1.6rem;
+}
+
+.filterBtns {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.filterBtns button {
+    border: 1px solid var(--bordercolor);
+    background: var(--white);
+    padding: 0.3rem 0.5em;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.2s ease;
+}
+
+.filterBtns button:hover {
+    border-color: var(--highlight);
+}
+
+.filterBtns button span {
+    background: #f3f4f6;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.filterBtns .active {
+    background: var(--highlight);
+    color: var(--white);
+    border-color: var(--highlight);
+}
+
+.filterBtns .active span {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+}
+
+.taskCards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--white);
+    border: 1px solid var(--bordercolor);
+    border-radius: 12px;
+    padding: 1em 1.5rem;
+    transition: 0.2s ease;
+}
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cardHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex: 1;
+    padding: 0.2em;
+    margin: 0;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    padding: 0;
+    margin: 0;
+}
+
+.editBtn,
+.deleteBtn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0.2em;
+    margin: 0;
+}
+
+.editBtn {
+    color: #0ea5e9;
+}
+
+.deleteBtn {
+    color: red;
+}
+
+.editBtn:hover,
+.deleteBtn:hover {
+    border-radius: 5px;
+    background-color: rgb(228, 223, 223);
+}
+
+.description {
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    min-height: 50px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: box;
+    line-clamp: 2;
+    box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dataNameIcon {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--gray);
+    margin-bottom: 0.9rem;
+}
+
+.calenderIcon {
+    color: #379bc9;
+}
+
+.userIcon {
+    color: #379bc9;
+}
+
+.hrLine {
+    margin: 1.3rem 0;
+    border: none;
+    border-top: 1px solid #808081;
+}
+
+.priorityStatus {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priority {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.high {
+    background: rgb(255, 235, 235);
+    color: red;
+}
+
+.high .dot {
+    background: red;
+}
+
+.medium {
+    background: rgb(255, 243, 220);
+    color: var(--medium);
+}
+
+.medium .dot {
+    background: var(--medium);
+}
+
+.low {
+    background: rgb(225, 245, 230);
+    color: var(--low);
+}
+
+.low .dot {
+    background: var(--low);
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.statusDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.inprogress .statusDot {
+    background: var(--highlight);
+}
+
+.completed .statusDot {
+    background: var(--low);
+}
+
+.pending .statusDot {
+    background: var(--medium);
+}
+
+@media (max-width: 900px) {
+
+    .taskCards {
+        grid-template-columns: 1fr;
+    }
+
+    .topBar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
