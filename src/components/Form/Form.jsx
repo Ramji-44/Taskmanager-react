@@ -4,7 +4,7 @@ import CustomInput from "./CustomInput"
 import CustomButton from "../Buttons/CustomButton"
 import buttonStyles from "../Buttons/Button.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import icons from "../../utils/Fontawesome"
+import { faClipboardList, faCheck, faXmark  } from "@fortawesome/free-solid-svg-icons"
 import Validate from "./Validation"
 
 function Form({
@@ -86,7 +86,7 @@ function Form({
     return (
         <form className={styles.taskform} onSubmit={handleSubmit}>
             <h3 className={styles.formTitle}>
-                <FontAwesomeIcon icon={icons.note} className={styles.titleIcon}/>
+                <FontAwesomeIcon icon={faClipboardList} className={styles.titleIcon}/>
                 {mode === "edit" ? " Edit Task" : "Create New Task"}
             </h3>
 
@@ -220,14 +220,14 @@ function Form({
                     text={mode === "edit" ? "Update Task" : "Create Task"}
                     type="submit"
                     className={mode === "edit" ? "updateBtn" : "createBtn"}
-                    icon={icons.tick}
+                    icon={faCheck}
                 />
 
                 <CustomButton
                     text={mode === "edit" ? "Cancel" : "Reset"}
                     type="button"
                     className={mode === "edit" ? "cancelBtn" : "resetBtn"}
-                    icon={icons.xmark} onClick={handleReset}
+                    icon={faXmark} onClick={handleReset}
                 />
 
             </div>

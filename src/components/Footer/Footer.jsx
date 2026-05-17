@@ -1,6 +1,6 @@
 import styles from "./Footer.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import icons from "../../utils/Fontawesome"
+import { faHeart} from "@fortawesome/free-solid-svg-icons"
 
 export default function Footer() {
     return (
@@ -47,7 +47,7 @@ export default function Footer() {
 
                 <div className={styles.copyRights}>
                     <hr />
-                    <p>© {new Date().getFullYear()} TaskManager. All rights reserved. Built with   <FontAwesomeIcon icon={icons.heart} className={styles.heartIcon} /> for productivity.</p>
+                    <p>© {new Date().getFullYear()} TaskManager. All rights reserved. Built with   <FontAwesomeIcon icon={faHeart} className={styles.heartIcon} /> for productivity.</p>
                 </div>
             </footer>
         </>

@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import icons from "../../utils/Fontawesome"
+import { faCircleExclamation} from "@fortawesome/free-solid-svg-icons"
 
 const Error = "name is required"
 
 function Validation(){
     return(
-        <span style={styles} ><FontAwesomeIcon icon={icons.warning}/><small>{Error}</small></span>      
+        <span style={styles} ><FontAwesomeIcon icon={faCircleExclamation}/><small>{Error}</small></span>      
     )
 }
 
