@@ -6,6 +6,7 @@ import buttonStyles from "../Buttons/Button.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClipboardList, faCheck, faXmark } from "@fortawesome/free-solid-svg-icons"
 import Validate from "./Validation"
+import Toast from "../Toast/Toast"
 
 const initialFormData = {
     taskName: "",
@@ -24,10 +25,12 @@ const initialFormData = {
 
 function Form({ mode = "create", initialData }) {
 
-    console.log("form .......................................  re-renders")
+    console.log("form ....  re-renders")
     const [data, setData] = useState(initialData || initialFormData)
 
     const [errors, setErrors] = useState({})
+
+    const [toast, setToast] = useState({ visible: false, message: "", type: "success" })
 
     const handleChange = useCallback((e) => {
         const { name, value, type, checked } = e.target
@@ -43,16 +46,43 @@ function Form({ mode = "create", initialData }) {
         })
     }, [])  // useCallback
 
-    function handleSubmit(e) {
+
+    // close toast
+    const closeToast = useCallback(() => {
+        setToast((prev) => ({ ...prev, visible: false }))
+    }, [])
+
+
+    async function handleSubmit(e) {
         e.preventDefault()
-        console.log(data)
-        alert(mode === "edit" ? "Task Updated Successfully" : "Task Created Successfully")
+
+        try {
+            const response = await fetch("http://localhost:3000/tasks", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            const result = await response.json()
+            console.log(result)
+
+            handleReset() // reset form inputs
+
+            setToast({ visible: true, message: mode === "edit" ? "Task Updated Successfully" : "Task Created Successfully", type: "success" })
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
 
     function handleReset() {
         setData(initialFormData)
         setErrors({})
     }
+
+    function handleDelete() {
+        setToast({ visible: true, message: "Task Deleted Successfully", type: "error" })
+    }
+
 
     return (
         <form className={styles.taskform} onSubmit={handleSubmit}>
@@ -185,6 +215,8 @@ function Form({ mode = "create", initialData }) {
                     onClick={handleReset}
                 />
             </div>
+
+            <Toast visible={toast.visible} message={toast.message} type={toast.type} onClose={closeToast} />
         </form >
     )
 }
