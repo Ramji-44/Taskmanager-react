@@ -1,4 +1,8 @@
 .tasksContainer {
+    height: 1140px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
     background: white;
     border-radius: 12px;
     padding: 1rem 1.5em;
