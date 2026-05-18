@@ -22,12 +22,12 @@
     grid-template-columns: 0.5fr 1fr;
     gap: 2em;
     padding: 0 4em;
-    /* border: 1px solid red; */
     background-color: #f8f8f8;
 }
 
 .form-section {
-    padding: 0 1.5em;
+    height: 1100px;
+    padding: 0em 2em;
     background-color: var(--white);
     border-radius: 10px;
     box-shadow:
