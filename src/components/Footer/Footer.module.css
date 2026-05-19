@@ -39,6 +39,12 @@ footer hr {
 .heartIcon {
     color: #FF4081;
 }
+
+.footerContainer ul li:hover {
+    cursor: pointer;
+    color: var(--highlight);
+    text-decoration: underline;
+}
 /* mobile view */
 @media (max-width: 768px) {
 
