@@ -64,11 +64,14 @@ header {
     height: 3px;
     background-color: black;
     border-radius: 2px;
+    transition: all  0.3s ease-in-out;
 }
 
-
 /* Mobile view */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
+    header {
+        width: 100%;
+    }
 
     .logoTitle {
         padding-left: 1em;
@@ -93,9 +96,11 @@ header {
     .active .menuLine:nth-child(1) {
         transform: rotate(45deg) translate(5px, 6px);
     }
+
     .active .menuLine:nth-child(2) {
         opacity: 0;
     }
+
     .active .menuLine:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -6px);
     }
@@ -110,5 +115,19 @@ header {
         padding: 0;
         margin: 0;
         align-items: center;
+    }
+}
+
+@media (min-width : 600px) and (max-width : 1024px) {
+    header {
+        width: 100%;
+    }
+
+    .logoTitle {
+        padding-left: 2em;
+    }
+
+    .navLinks ul {
+        padding-right: 2em;
     }
 }
