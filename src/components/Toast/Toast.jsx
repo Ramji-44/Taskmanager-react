@@ -3,10 +3,9 @@ import styles from "./Toast.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faCircleXmark, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-function Toast({ message, type = "success", visible, onClose }) {
+function Toast({ message, type, visible, onClose }) {
 
     useEffect(() => {
-
         if (!visible) return
 
         const timer = setTimeout(() => {
@@ -14,13 +13,13 @@ function Toast({ message, type = "success", visible, onClose }) {
         }, 3000)
 
         return () => clearTimeout(timer)
-
     }, [visible, onClose])
-
+    
     if (!visible) return null
 
     const icons = {
         success: faCircleCheck,
+        update: faCircleCheck,
         error: faCircleXmark
     }
 
