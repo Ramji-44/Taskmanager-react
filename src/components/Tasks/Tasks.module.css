@@ -20,7 +20,7 @@
 .heading {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.3rem;
     margin: 0;
 }
 
@@ -255,13 +255,18 @@
 }
 
 @media (max-width: 900px) {
-
     .taskCards {
         grid-template-columns: 1fr;
     }
+}
 
-    .topBar {
-        flex-direction: column;
-        align-items: flex-start;
+@media (max-width: 600px){
+    .tasksContainer{
+        padding: 0;
+    }
+
+    .filterBtns{
+        padding-top: 0.5em;
+        gap: 0.5em;
     }
 }
