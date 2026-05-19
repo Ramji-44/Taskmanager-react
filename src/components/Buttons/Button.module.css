@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin: 0em 0 1.5em 0;
+    margin: 0em;
     padding: 0 1.2em;
     gap: 1em;
 }
@@ -46,23 +46,64 @@
 .cancelBtn:hover {
     background-color: rgb(210, 210, 210);
 }
-.icon{
+
+.icon {
     font-size: 1.2em;
 }
+
+@media (min-width: 601px) and (max-width: 1000px) {
+    .taskButtons {
+        gap: 2em;
+        justify-content: center;
+    }
+    .taskButtons button{
+        margin: 0;
+        padding: 1.2em 0.5em;
+    }
+    .createBtn, .updateBtn{
+        width: 130px;
+    }
+    .resetBtn,.cancelBtn{
+        width: 100px;
+    }
+}
+
+@media (min-width : 1001px)  and (max-width : 1250px){
+    .taskButtons{
+        gap: 2.5em;
+        justify-content: center;
+        border: 1px solid red;
+    }
+    .taskButtons button{
+        margin: 0;
+        padding: 1.2em 0.5em;
+    }
+    .createBtn, .updateBtn{
+        width: 140px;
+    }
+    .resetBtn,.cancelBtn{
+        width: 100px;
+    }
+
+}
+
 @media (max-width: 600px) {
     .taskButtons {
-        padding: 0 1em;
+        margin: 0;
+        padding: 0;
+        gap: 2em;
+        justify-content: center;
     }
 
-    .createBtn,
-    .updateBtn {
-        width: 55%;
-        padding: 0.9em 0;
+    .taskButtons button{
+        padding: 1.2em 0.5em;
+    }
+    .createBtn,.updateBtn {
+        width: 130px;
     }
 
-    .resetBtn,
-    .cancelBtn {
-        width: 35%;
+    .resetBtn,.cancelBtn {
+        width: 90px;
         padding: 0.9em 0;
     }
 }
