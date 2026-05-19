@@ -43,6 +43,11 @@ header {
     padding: 0.2em 0.5em;
     list-style-type: none;
 }
+.navLinks ul li:hover{
+    color: var(--highlight);
+    cursor: pointer;
+    text-decoration: underline;
+}
 
 .navLinks .highLight {
     color: rgba(81, 81, 247, 0.87);
