@@ -3,6 +3,9 @@ import Form from "../components/Form/Form"
 import Tasks from "../components/Tasks/Tasks"
 import Toast from "../components/Toast/Toast"
 import styles from "./TaskPage.module.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPenToSquare, faTrash, faCircleUser, faEnvelope, faCalendarDays, faClock, faFlag, faStopwatch, faLink, faChartLine, faLayerGroup, faHourglassHalf, faAlignLeft, faColonSign } from "@fortawesome/free-solid-svg-icons"
+
 
 function TaskPage() {
 
@@ -14,7 +17,7 @@ function TaskPage() {
     const [deleteTask, setDeleteTask] = useState(null)
 
     const [toast, setToast] = useState({ visible: false, message: "", type: "" })
-
+    const [viewTask, setViewTask] = useState(null)
 
     function fetchTasks() {
         fetch("http://localhost:4000/tasks")
@@ -52,6 +55,9 @@ function TaskPage() {
         setDeleteTask(null)
     }
 
+    function handleView(task) {
+        setViewTask(task)
+    }
 
     function closeToast() {
         setToast((prev) => ({ ...prev, visible: false }))
@@ -81,8 +87,9 @@ function TaskPage() {
             </div>
 
             <div className={`tasks-section ${styles.tasksSection}`}>
-                <Tasks tasks={tasks} onEdit={handleEdit} onDelete={handleDelete} />
+                <Tasks tasks={tasks} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} />
 
+                {/* delete modal  */}
                 {delConfirmMsg && (
                     <div className={styles.overlay}>
 
@@ -90,7 +97,7 @@ function TaskPage() {
                             <p>"This action will permanently delete this task"</p>
 
                             <div className={styles.deleteText}>
-                                <span>Are you sure want delete </span>
+                                <span>Are you sure want to delete </span>
                                 <h4>{deleteTask.taskName} ?</h4>
                             </div>
 
@@ -98,6 +105,89 @@ function TaskPage() {
                                 <button onClick={cancelDelete} className={styles.cancelBtn} >Cancel</button>
                                 <button onClick={confirmDelete} className={styles.deleteBtn} >Delete</button>
                             </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* view task modal */}
+                {viewTask && (
+                    <div className={styles.overlay}>
+                        <div className={styles.viewtaskmodal}>
+
+                            <div className={styles.header}>
+                                <button className={styles.editBtn}><FontAwesomeIcon icon={faPenToSquare} /></button>
+                                <button className={styles.deleteBtn}><FontAwesomeIcon icon={faTrash} /></button>
+                                <button className={styles.closeBtn} onClick={() => setViewTask(null)}>close</button>
+                            </div>
+
+                            <h3>{viewTask.taskName}</h3>
+
+                            <div className={styles.fields}>
+                                <div className={styles.label}> <FontAwesomeIcon icon={faCircleUser} className={styles.iconName} />Assignee Name</div>
+                                <span className={styles.colon}>:</span>
+                                <span className={styles.value}>{viewTask.assigneeName}</span>
+                            </div>
+
+                            <div className={styles.fields}>
+                                <div className={styles.label}> <FontAwesomeIcon icon={faEnvelope} className={styles.iconEmail} />Assignee Email</div>
+                                <span className={styles.colon}>:</span>
+                                <span className={styles.value}>{viewTask.assigneeEmail}</span>
+                            </div>
+
+                            <div className={styles.fields}>
+                                <div className={styles.label}> <FontAwesomeIcon icon={faCalendarDays} className={styles.iconDate} />Due Date</div>
+                                <span className={styles.colon}>:</span>
+                                <span className={styles.value}>{viewTask.dueDate}</span>
+                            </div>
+
+                            <div className={styles.fields}>
+                                <div className={styles.label}> <FontAwesomeIcon icon={faClock} className={styles.iconTime} />Due Time</div>
+                                <span className={styles.colon}>:</span>
+                                <span className={styles.value}>{viewTask.dueTime}</span>
+                            </div>
+
+                            <div className={styles.fields}>
+                                <div className={styles.label}> <FontAwesomeIcon icon={faFlag} className={styles.iconPrior} />Priority</div>
+                                <span className={styles.colon}>:</span>
+                                <span className={styles.value}>{viewTask.priority}</span>
+                            </div>
+
+                            <div className={styles.fields}>
+                                <div className={styles.label}> <FontAwesomeIcon icon={faStopwatch} className={styles.iconHours} />Hours</div>
+                                <span className={styles.colon}>:</span>
+                                <span className={styles.value}>{viewTask.hours}</span>
+                            </div>
+
+                            <div className={styles.fields}>
+                                <div className={styles.label}> <FontAwesomeIcon icon={faLink} className={styles.iconUrl} />URL</div>
+                                <span className={styles.colon}>:</span>
+                                <span className={styles.value}>{viewTask.url}</span>
+                            </div>
+
+                            <div className={styles.fields}>
+                                <div className={styles.label}> <FontAwesomeIcon icon={faChartLine} className={styles.iconPro} />Progress</div>
+                                <span className={styles.colon}>:</span>
+                                <span className={styles.value}>{viewTask.progress} %</span>
+                            </div>
+
+                            <div className={styles.fields}>
+                                <div className={styles.label}> <FontAwesomeIcon icon={faLayerGroup} className={styles.iconTType} />Task Type</div>
+                                <span className={styles.colon}>:</span>
+                                <span className={styles.value}>{viewTask.taskType}</span>
+                            </div>
+
+                            <div className={styles.fields}>
+                                <div className={styles.label}> <FontAwesomeIcon icon={faHourglassHalf} className={styles.iconStype} />Status Type</div>
+                                <span className={styles.colon}>:</span>
+                                <span className={styles.value}>{viewTask.statusType} </span>
+                            </div>
+
+                            <div className={styles.fields}>
+                                <div className={styles.label}> <FontAwesomeIcon icon={faAlignLeft} className={styles.iconDes} />Description</div>
+                                <span className={styles.colon}>:</span>
+                                <span className={styles.value}>{viewTask.description} </span>
+                            </div>
+
                         </div>
                     </div>
                 )}
