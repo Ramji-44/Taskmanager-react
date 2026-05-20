@@ -2,17 +2,27 @@ import styles from "./Tasks.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrash, faCalendarDays, faUser } from "@fortawesome/free-solid-svg-icons"
 
-function TaskCards({ task, onEdit, onDelete }) {
+function TaskCards({ task, onEdit, onDelete, onView }) {
     console.log("no. of task fetched :", task)
+    
     return (
-        <div className={styles.card}>
+        <div className={styles.card} onClick={() => onView(task)}>
 
             <div className={styles.cardHeader}>
                 <h3 className={styles.title}>{task.taskName}</h3>
 
                 <div className={styles.actions}>
-                    <button className={styles.editBtn} onClick={() => onEdit(task)} ><FontAwesomeIcon icon={faPenToSquare} /></button>
-                    <button className={styles.deleteBtn} onClick={() => onDelete(task)}><FontAwesomeIcon icon={faTrash} /></button>
+                    <button className={styles.editBtn} onClick={(e) => {
+                        e.stopPropagation()
+                        onEdit(task)
+                    }} >
+                        <FontAwesomeIcon icon={faPenToSquare} /></button>
+
+                    <button className={styles.deleteBtn} onClick={(e) => {
+                        e.stopPropagation()
+                        onDelete(task)
+                    }}>
+                        <FontAwesomeIcon icon={faTrash} /></button>
                 </div>
             </div>
 
