@@ -4,7 +4,7 @@ import { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons"
 
-function Tasks({ tasks = [], onEdit, onDelete }) {
+function Tasks({ tasks = [], onEdit, onDelete, onView}) {
 
     const [activeColor, setActiveColor] = useState("all")  // active color for filter buttons
 
@@ -41,7 +41,7 @@ function Tasks({ tasks = [], onEdit, onDelete }) {
             </div>
 
             <div className={styles.taskCards}>
-                {filterTasks.map(task => (<TaskCards key={task.id} task={task} onEdit={onEdit} onDelete={onDelete} />))}
+                {filterTasks.map(task => (<TaskCards key={task.id} task={task} onEdit={onEdit} onDelete={onDelete} onView={onView} />))}
             </div>
 
         </section>
