@@ -1,8 +1,7 @@
 import "./App.css"
 import Navbar from "./components/Navbar/Navbar"
 import Footer from "./components/Footer/Footer"
-import Form from "./components/Form/Form"
-import Tasks from "./components/Tasks/Tasks"
+import TaskPage from "./pages/TaskPage"
 
 function App() {
 
@@ -15,13 +14,7 @@ function App() {
       </div>
 
       <main className="main-container">
-        <div className="form-section">
-          <Form />
-        </div>
-
-        <div className="tasks-section">
-          <Tasks />
-        </div>
+        <TaskPage/>
       </main>
 
       <Footer />
