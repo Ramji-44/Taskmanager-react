@@ -10,15 +10,15 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 25%;
     z-index: 999;
 }
 
 .confirmBox {
     width: 60%;
-    background: #fafafa;
+    background: var(--white);
     border-radius: 14px;
     padding: 2em;
+    margin-top: 15%;
     animation: deletePopup 0.25s ease;
     display: flex;
     flex-direction: column;
@@ -29,7 +29,7 @@
 }
 
 .confirmBox p {
-    text-align:center;
+    text-align: center;
     margin: 0;
     color: #dc2626;
 }
@@ -41,6 +41,7 @@
     gap: 8px;
     flex-wrap: nowrap;
 }
+
 .deleteText span {
     font-size: 1rem;
     color: #333;
@@ -64,7 +65,7 @@
 .modalBtns button {
     border: none;
     outline: none;
-    padding: 0.7em  1.3em;
+    padding: 0.7em 1.3em;
     border-radius: 8px;
     cursor: pointer;
     font-size: 0.95rem;
@@ -107,4 +108,147 @@
     }
 }
 
+.viewtaskmodal {
+    height: 90%;
+    width: 90%;
+    margin: 3.5em 0;
+    background: rgb(252, 253, 252);
+    border-radius: 24px;
+    padding: 1em 2em;
+    animation: taskView 0.25s ease;
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.15),
+        0 20px 40px rgba(0, 0, 0, 0.15);
+}
 
+.viewtaskmodal .header{
+    display: flex;
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+    align-items: center;
+}
+.viewtaskmodal .header h3{
+    color: var(--highlight);
+}
+
+.viewtaskmodal button:hover{
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.viewtaskmodal .editBtn{
+    border: none;
+    font-size: 1.3em;
+    padding: 0.3em;
+    background: transparent;
+    color: var(--highlight);
+    border-radius: 999px;
+}
+.viewtaskmodal .editBtn:hover{
+    color: var(--white);
+    background-color: #1591DC;
+}
+
+.viewtaskmodal .deleteBtn{
+    border: none;
+    padding: 0.3em;
+    font-size: 1.3em;
+    color: #ce2a2a;
+    border-radius: 999px;
+    background-color: transparent;
+}
+.viewtaskmodal .deleteBtn:hover{
+    color: var(--white);
+    background-color: #FF0000;
+}
+
+.viewtaskmodal .closeBtn{
+    margin-left: auto;
+    text-align: center;
+    border: none;
+    font-size: 1.2em;
+    color: var(--white);
+    padding: 0.3em 0.7em ;
+    border-radius: 999px;
+    background-color: black;
+}
+
+.closeBtn:hover{
+    background-color: #333;
+}
+
+.viewtaskmodal h3{
+    text-align: center;
+}
+
+.fields{
+    display: flex;
+    gap: 1.5em;
+    margin-bottom: 1em;
+}
+
+.label{
+    width: 200px;
+    font-size: 1.2em;
+    margin-right: 1em;
+}
+.colon{
+    font-size: 1.1em;
+    font-weight: 700;
+}
+.value{
+    font-size: 1.1em;
+}
+
+.iconName, .iconEmail, .iconDate, .iconTime, .iconPrior, .iconHours, .iconUrl, .iconPro, .iconTType, .iconStype, .iconDes{
+    margin-right: 0.5em;
+}
+
+.iconName{
+    color:#0841fd ;
+}
+.iconEmail {
+    color : #48b3f1
+}
+.iconDate {
+    color : #93da97
+}
+.iconTime {
+    color : #4ed14e
+}
+.iconHours {
+    color : #da1616
+}
+.iconUrl {
+    color : #648de4
+}
+.iconStype{
+    color: #009990;
+}
+.iconPrior{
+    color:#ff7f11 ;
+}
+.iconPro{
+    color: #074799;
+}
+.iconTType{
+    color: #ff5555;
+}
+.iconDes{
+    color: #006a67;
+}
+
+
+/* animation */
+@keyframes taskView {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
