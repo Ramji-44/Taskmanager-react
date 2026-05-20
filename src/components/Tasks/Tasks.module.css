@@ -33,7 +33,6 @@
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    flex-wrap: wrap;
 }
 
 .filterBtns button {
@@ -261,12 +260,49 @@
 }
 
 @media (max-width: 600px){
+    .heading{
+        font-size: 1.2em;
+    }
+    .faCircleCheck{
+        font-size: 1em;
+    }
     .tasksContainer{
         padding: 0;
     }
 
     .filterBtns{
-        padding-top: 0.5em;
-        gap: 0.5em;
+        width: 100%;
+        justify-content:space-between;
+        font-size: 14px;
+        padding: 0.5em 0 0 0;
+        gap: 0.1em;
+    }
+    .filterBtns button{
+        font-size: 14px;
+        padding: 0.2em 0.3em;
+    }
+}
+
+@media(max-width: 350px){
+    .tasksContainer{
+        padding: 0;
+    }
+    .filterBtns{
+        width: 100%;
+        justify-content:space-between;
+        padding: 0.5em 0 0 0;
+    }
+    .filterBtns button{
+        gap: 0.2em;
+        font-size: 12px;
+        padding: 0.2em;
+    }
+    .filterBtns button span{
+        padding: 0;
+        margin: 0;
+        gap: 0;
+        width: 5px;
+        height: 20px;
+        font-size: 10px;
     }
 }
