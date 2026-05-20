@@ -117,7 +117,8 @@ input:-webkit-autofill:focus {
 }
 
 .titleIcon {
-    font-size: 1em;
+    margin-right: 0.5em;
+    font-size: 1.2em;
     color: #F48F68;
 }
 
