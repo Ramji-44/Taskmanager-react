@@ -72,7 +72,6 @@
     .taskButtons{
         gap: 2.5em;
         justify-content: center;
-        border: 1px solid red;
     }
     .taskButtons button{
         margin: 0;
