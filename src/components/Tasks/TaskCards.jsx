@@ -2,37 +2,29 @@ import styles from "./Tasks.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrash, faCalendarDays, faUser } from "@fortawesome/free-solid-svg-icons"
 
-function TaskCard({ task }) {
-
-    const statusMap = {
-        "In Progress": "inprogress",
-        "Completed": "completed",
-        "Pending": "pending"
-    };
-
-    const statusKey = statusMap[task.status];
-
+function TaskCards({ task, onEdit, onDelete }) {
+    console.log("no. of task fetched :", task)
     return (
         <div className={styles.card}>
 
             <div className={styles.cardHeader}>
-                <h3 className={styles.title}>{task.title}</h3>
+                <h3 className={styles.title}>{task.taskName}</h3>
 
                 <div className={styles.actions}>
-                    <button className={styles.editBtn}><FontAwesomeIcon icon={faPenToSquare} /></button>
-                    <button className={styles.deleteBtn}><FontAwesomeIcon icon={faTrash} /></button>
+                    <button className={styles.editBtn} onClick={() => onEdit(task)} ><FontAwesomeIcon icon={faPenToSquare} /></button>
+                    <button className={styles.deleteBtn} onClick={() => onDelete(task)}><FontAwesomeIcon icon={faTrash} /></button>
                 </div>
             </div>
 
             <p className={styles.description}>{task.description}</p>
 
             <div className={styles.dataNameIcon}>
-                <FontAwesomeIcon icon={faCalendarDays} className={styles.calenderIcon}/>
+                <FontAwesomeIcon icon={faCalendarDays} className={styles.calenderIcon} />
                 <span>Due: {task.dueDate}</span>
             </div>
 
             <div className={styles.dataNameIcon}>
-                <FontAwesomeIcon icon={faUser} className={styles.userIcon} /><span>{task.assignedTo}</span>
+                <FontAwesomeIcon icon={faUser} className={styles.userIcon} /><span>{task.assigneeName}</span>
             </div>
 
             <hr className={styles.hrLine} />
@@ -46,9 +38,9 @@ function TaskCard({ task }) {
                     </span>
                 </div>
 
-                <div className={`${styles.status} ${styles[statusKey]}`}>
+                <div className={`${styles.status} ${styles[task.statusType]}`}>
                     <span className={styles.statusDot}></span>
-                    <span>{task.status}</span>
+                    <span>{task.statusType}</span>
                 </div>
 
             </div>
@@ -57,4 +49,4 @@ function TaskCard({ task }) {
     )
 }
 
-export default TaskCard
+export default TaskCards
