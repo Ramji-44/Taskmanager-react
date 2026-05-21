@@ -108,8 +108,9 @@
     }
 }
 
+
 .viewtaskmodal {
-    height: 90%;
+    height: 65%;
     width: 90%;
     margin: 3.5em 0;
     background: rgb(252, 253, 252);
@@ -251,4 +252,101 @@
         opacity: 1;
         transform: scale(1);
     }
+}
+
+/* taskView details */
+.priorityBg,
+.statusBg {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: 1px solid rgb(255, 235, 235);
+}
+
+/* dot */
+.priorityBg::before,
+.statusBg::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+
+.high {
+    background: rgb(255, 235, 235);
+    color: red;
+}
+
+.high::before {
+    background: red;
+}
+
+.medium {
+    background: rgb(255, 243, 220);
+    color: var(--medium);
+}
+
+.medium::before {
+    background: var(--medium);
+}
+
+.low {
+    background: rgb(225, 245, 230);
+    color: var(--low);
+}
+
+.low::before {
+    background: var(--low);
+}
+
+.pending {
+    color: var(--medium);
+}
+
+.pending::before {
+    background: var(--medium);
+}
+
+.inprogress {
+    color: var(--highlight);
+}
+
+.inprogress::before {
+    background: var(--highlight);
+}
+
+.completed {
+    color: var(--low);
+}
+
+.completed::before {
+    background: var(--low);
+}
+
+/* description */
+.descriptionField {
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.descriptionField .descriptionBox {
+    flex: 1 1 100%;
+    background: #c5ccd3;
+    border-radius: 16px;
+    padding: 1.2em;
+    line-height: 1.7;
+    color: #333;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.emptyState {
+    margin: 20%;
+    text-align: center;
 }
