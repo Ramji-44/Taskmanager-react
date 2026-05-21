@@ -34,7 +34,7 @@ function TaskPage() {
         fetchTasks()
     }, [])
 
-    console.log("useEffect runned ................", tasks)
+    console.log("useEffect runned ..............for fetching the tasks in tasks page..........", tasks)
 
     function handleEdit(task) {
         setSelectedTask(task)
@@ -88,7 +88,8 @@ function TaskPage() {
             </div>
 
             <div className={`tasks-section ${styles.tasksSection}`}>
-                <Tasks tasks={tasks} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} />
+            
+            { tasks.length === 0 ? ( <h2 className={styles.emptyState}>No tasks found</h2> ) :  (<Tasks tasks={tasks} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} />  ) }
 
                 {/* delete modal  */}
                 {delConfirmMsg && (
