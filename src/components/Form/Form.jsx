@@ -1,12 +1,12 @@
 import styles from "./Form.module.css"
-import { useState, useCallback } from "react"
-import CustomInput from "./CustomInput"
+import { useState, useCallback, useEffect } from "react"
+import CustomInput from "./CustomInput.jsx"
 import CustomButton from "../Buttons/CustomButton"
 import buttonStyles from "../Buttons/Button.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClipboardList, faCheck, faXmark } from "@fortawesome/free-solid-svg-icons"
-import Validate from "./Validation"
-import Toast from "../Toast/Toast"
+import Validate from "./CustomValidation.jsx"
+import validateForm from "../../utils/validation.js"
 
 const initialFormData = {
     taskName: "",
@@ -23,18 +23,25 @@ const initialFormData = {
     statusType: ""
 }
 
-function Form({ mode = "create", initialData }) {
+function Form({ mode = "create", initialData, refreshTasks, setMode, clearEdit, setToast }) {
 
     console.log("form ....  re-renders")
     const [data, setData] = useState(initialData || initialFormData)
 
     const [errors, setErrors] = useState({})
 
-    const [toast, setToast] = useState({ visible: false, message: "", type: "success" })
+    useEffect(() => {
+        if (mode === "edit" && initialData?.id) {
+            setData(initialData)
+        }
+        else {
+            setData(initialFormData)
+        }
+    }, [initialData, mode])
 
-    const handleChange = useCallback((e) => {
+
+    function handleChange(e) {
         const { name, value, type, checked } = e.target
-
         setData((prev) => {
             if (type === "checkbox") {
                 const updatedTaskType = checked ? [...prev.taskType, value] : prev.taskType.filter((item) => item !== value)
@@ -44,158 +51,190 @@ function Form({ mode = "create", initialData }) {
             // other inputs
             return { ...prev, [name]: value }
         })
-    }, [])  // useCallback
+    }
 
 
-    // close toast
-    const closeToast = useCallback(() => {
-        setToast((prev) => ({ ...prev, visible: false }))
-    }, [])
 
-
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault()
 
-        try {
-            const response = await fetch("http://localhost:3000/tasks", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
+        const validationErrors = validateForm(data)
+        if (Object.keys(validationErrors).length > 0) {
+            const firstError = Object.keys(validationErrors)[0]
+            setErrors({[firstError]: validationErrors[firstError]})
+
+            document.querySelector(`[name="${firstError}"]`)?.focus()
+            return
+        }
+
+        const url = mode === "edit" ? `http://localhost:4000/tasks/${data.id}` : "http://localhost:4000/tasks"
+        const method = mode === "edit" ? "PUT" : "POST"
+
+        fetch(url, {
+            method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        })
+            .then((res) => res.json())
+            .then((result) => {
+                console.log(result)
+
+                handleReset()
+                refreshTasks()
+                
+                setToast({ visible: true, message: mode === "edit" ? "Task Updated Successfully" : "Task Created Successfully", type: mode === "edit" ? "update" : "success" })
+
+                setMode("create")
+                clearEdit()
+
             })
-            const result = await response.json()
-            console.log(result)
-
-            handleReset() // reset form inputs
-
-            setToast({ visible: true, message: mode === "edit" ? "Task Updated Successfully" : "Task Created Successfully", type: "success" })
-        }
-        catch (error) {
-            console.log(error)
-        }
+            .catch((error) => {
+                console.log(error)
+            })
     }
+
 
     function handleReset() {
-        setData(initialFormData)
         setErrors({})
-    }
+        if (mode === "edit") {
+            setData(initialFormData)
+            setMode("create")
 
-    function handleDelete() {
-        setToast({ visible: true, message: "Task Deleted Successfully", type: "error" })
+            clearEdit()
+        }
+        setData(initialFormData)
     }
 
 
     return (
-        <form className={styles.taskform} onSubmit={handleSubmit}>
+        <form className={styles.taskform} onSubmit={handleSubmit} noValidate>
 
             <h3 className={styles.formTitle}>
                 <FontAwesomeIcon icon={faClipboardList} className={styles.titleIcon} />
                 {mode === "edit" ? " Edit Task" : "Create New Task"}
             </h3>
 
-            <CustomInput
-                id="taskName"
-                name="taskName"
-                placeholder="Task Name *"
-                value={data.taskName}
-                onChange={handleChange}
-            />
+            <div className={styles.box}>
+                <CustomInput
+                    id="taskName"
+                    name="taskName"
+                    placeholder="Task Name *"
+                    value={data.taskName}
+                    onChange={handleChange}
+                />
 
-            <div className={styles.errorMessage}>
-                {errors.taskName && <Validate />}
+                <div className={styles.errorMessage}>
+                    {errors.taskName && <Validate message={errors.taskName} />}
+                </div>
             </div>
 
-            <CustomInput
-                id="assigneeName" name="assigneeName" placeholder="Assignee Name *" value={data.assigneeName} onChange={handleChange} />
-            <div className={styles.errorMessage}>
-                {errors.assigneeName && <Validate />}
+            <div className={styles.box}>
+                <CustomInput
+                    id="assigneeName" name="assigneeName" placeholder="Assignee Name *" value={data.assigneeName} onChange={handleChange} />
+                <div className={styles.errorMessage}>
+                    {errors.assigneeName && <Validate message={errors.assigneeName} />}
+                </div>
             </div>
 
-            <CustomInput id="assigneeEmail" name="assigneeEmail" type="email" placeholder="Assignee Email *" value={data.assigneeEmail} onChange={handleChange} />
-            <div className={styles.errorMessage}>
-                {errors.assigneeEmail && <Validate />}
+            <div className={styles.box}>
+                <CustomInput id="assigneeEmail" name="assigneeEmail" type="email" placeholder="Assignee Email *" value={data.assigneeEmail} onChange={handleChange} />
+                <div className={styles.errorMessage}>
+                    {errors.assigneeEmail && <Validate message={errors.assigneeEmail} />}
+                </div>
             </div>
+
 
             <div className={styles.inputBox}>
-                <CustomInput id="dueDate" name="dueDate" type="date" label="Due Date*" value={data.dueDate} onChange={handleChange} />
+                <CustomInput id="dueDate" name="dueDate" type="date" label="Due Date*" value={data.dueDate} onChange={handleChange} min={new Date().toISOString().split("T")[0]} />
                 <div className={styles.errorMessage}>
-                    {errors.dueDate && <Validate />}
+                    {errors.dueDate && <Validate message={errors.dueDate} />}
                 </div>
             </div>
 
             <div className={styles.inputBox}>
                 <CustomInput id="dueTime" name="dueTime" type="time" label="Due Time*" value={data.dueTime} onChange={handleChange} />
                 <div className={styles.errorMessage}>
-                    {errors.dueTime && <Validate />}
+                    {errors.dueTime && <Validate message={errors.dueTime} />}
                 </div>
             </div>
 
             <div className={styles.inputBox}>
                 <label className={styles.floatLabel}>Priority Level*</label>
-                <select name="priority" value={data.priority} onChange={handleChange}>
-                    <option value="">Select Priority</option>
+                <select name="priority" value={data.priority} onChange={handleChange} >
+                    <option value="" disabled>Select Priority</option>
                     <option value="low">Low Priority</option>
                     <option value="medium">Medium Priority</option>
                     <option value="high">High Priority</option>
                 </select>
 
                 <div className={styles.errorMessage}>
-                    {errors.priority && <Validate />}
+                    {errors.priority && <Validate message={errors.priority} />}
                 </div>
             </div>
 
             <div className={styles.inputBox}>
                 <CustomInput id="hours" name="hours" type="number" label="Estimated Hours*" value={data.hours} onChange={handleChange} />
                 <div className={styles.errorMessage}>
-                    {errors.hours && <Validate />}
+                    {errors.hours && <Validate message={errors.hours} />}
                 </div>
             </div>
 
-            <CustomInput
-                id="url" name="url" type="url" placeholder="Project URL*" value={data.url} onChange={handleChange} />
-            <div className={styles.errorMessage}>
-                {errors.url && <Validate />}
-            </div>
-
-            <textarea name="description" placeholder="Task Description *" value={data.description} onChange={handleChange} />
-            <div className={styles.errorMessage}>
-                {errors.description && <Validate />}
-            </div>
-
-            <div className={styles.inputRange}>
-                <span>Task Progress*</span>
-
-                <CustomInput id="progress" name="progress" type="range" min="0" max="100" step="1" value={data.progress} onChange={handleChange} />
-                <p>{data.progress}%</p>
-
-            </div>
-
-            <div className={styles.errorMessage}>
-                {errors.progress && <Validate />}
-            </div>
-
-            <div className={styles.taskTypes}>
-                <p>Task Type*</p>
-
-                <CustomInput id="bug" type="checkbox" name="taskType" value="BugFix" checked={data.taskType.includes("BugFix")} onChange={handleChange} endLabel="Bug Fix" />
-
-                <CustomInput id="feature" type="checkbox" name="taskType" value="Feature" checked={data.taskType.includes("Feature")} onChange={handleChange} endLabel="Feature" />
-
-                <CustomInput id="enhancement" type="checkbox" name="taskType" value="Enhancement" checked={data.taskType.includes("Enhancement")} onChange={handleChange} endLabel="Enhancement" />
-
+            <div className={styles.box}>
+                <CustomInput
+                    id="url" name="url" type="url" placeholder="Project URL*" value={data.url} onChange={handleChange} />
                 <div className={styles.errorMessage}>
-                    {errors.taskType && <Validate />}
+                    {errors.url && <Validate message={errors.url} />}
                 </div>
             </div>
 
-            <div className={styles.statusTypes}>
-                <p>Status*</p>
-                <CustomInput id="pending" type="radio" name="statusType" value="Pending" checked={data.statusType === "Pending"} onChange={handleChange} endLabel="Pending" />
-
-                <CustomInput id="inprogress" type="radio" name="statusType" value="In Progress" checked={data.statusType === "In Progress"} onChange={handleChange} endLabel="In Progress" />
-
-                <CustomInput id="completed" type="radio" name="statusType" value="Completed" checked={data.statusType === "Completed"} onChange={handleChange} endLabel="Completed" />
+            <div className={styles.box}>
+                <textarea name="description" placeholder="Task Description *" value={data.description} onChange={handleChange} maxLength={200} />
                 <div className={styles.errorMessage}>
-                    {errors.statusType && <Validate />}
+                    {errors.description && <Validate message={errors.description} />}
+                </div>
+            </div>
+
+            <div className={styles.box}>
+                <div className={styles.inputRange}>
+                    <span>Task Progress*</span>
+
+                    <CustomInput id="progress" name="progress" type="range" min="0" max="100" step="1" value={data.progress} onChange={handleChange} />
+                    <p>{data.progress}%</p>
+                    <div className={styles.errorMessage}>
+                        {errors.progress && <Validate message={errors.progress} />}
+                    </div>
+                </div>
+            </div>
+
+
+            <div className={styles.box}>
+                <div className={styles.taskTypes}>
+                    <p>Task Type*</p>
+
+                    <CustomInput id="bug" type="checkbox" name="taskType" value="BugFix" checked={data.taskType.includes("BugFix")} onChange={handleChange} endLabel="Bug Fix" />
+
+                    <CustomInput id="feature" type="checkbox" name="taskType" value="Feature" checked={data.taskType.includes("Feature")} onChange={handleChange} endLabel="Feature" />
+
+                    <CustomInput id="enhancement" type="checkbox" name="taskType" value="Enhancement" checked={data.taskType.includes("Enhancement")} onChange={handleChange} endLabel="Enhancement" />
+                </div>
+
+                <div className={styles.errorMessage}>
+                    {errors.taskType && <Validate message={errors.taskType} />}
+                </div>
+            </div>
+
+            <div className={styles.box}>
+                <div className={styles.statusTypes}>
+                    <p>Status*</p>
+                    <CustomInput id="pending" type="radio" name="statusType" value="pending" checked={data.statusType === "pending"} onChange={handleChange} endLabel="Pending" />
+
+                    <CustomInput id="inprogress" type="radio" name="statusType" value="inprogress" checked={data.statusType === "inprogress"} onChange={handleChange} endLabel="In Progress" />
+
+                    <CustomInput id="completed" type="radio" name="statusType" value="completed" checked={data.statusType === "completed"} onChange={handleChange} endLabel="Completed" />
+                </div>
+
+                <div className={styles.errorMessage}>
+                    {errors.statusType && <Validate message={errors.statusType} />}
                 </div>
             </div>
 
@@ -216,7 +255,6 @@ function Form({ mode = "create", initialData }) {
                 />
             </div>
 
-            <Toast visible={toast.visible} message={toast.message} type={toast.type} onClose={closeToast} />
         </form >
     )
 }
