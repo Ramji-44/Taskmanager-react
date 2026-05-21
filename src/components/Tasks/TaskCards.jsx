@@ -1,6 +1,7 @@
 import styles from "./Tasks.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrash, faCalendarDays, faUser } from "@fortawesome/free-solid-svg-icons"
+import { formatStatus, formatDate } from "../../utils/displayFormat"
 
 function TaskCards({ task, onEdit, onDelete, onView }) {
     console.log("no. of task fetched :", task)
@@ -30,7 +31,7 @@ function TaskCards({ task, onEdit, onDelete, onView }) {
 
             <div className={styles.dataNameIcon}>
                 <FontAwesomeIcon icon={faCalendarDays} className={styles.calenderIcon} />
-                <span>Due: {task.dueDate}</span>
+                <span>Due: {formatDate(task.dueDate)}</span>
             </div>
 
             <div className={styles.dataNameIcon}>
@@ -50,7 +51,7 @@ function TaskCards({ task, onEdit, onDelete, onView }) {
 
                 <div className={`${styles.status} ${styles[task.statusType]}`}>
                     <span className={styles.statusDot}></span>
-                    <span>{task.statusType}</span>
+                    <span>{formatStatus(task.statusType)}</span>
                 </div>
 
             </div>
