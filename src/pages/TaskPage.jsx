@@ -5,6 +5,7 @@ import Toast from "../components/Toast/Toast"
 import styles from "./TaskPage.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrash, faCircleUser, faEnvelope, faCalendarDays, faClock, faFlag, faStopwatch, faLink, faChartLine, faLayerGroup, faHourglassHalf, faAlignLeft, faColonSign } from "@fortawesome/free-solid-svg-icons"
+import { formatPriority, formatTaskType, formatStatus, formatDate } from "../utils/displayFormat"
 
 
 function TaskPage() {
@@ -137,7 +138,7 @@ function TaskPage() {
                             <div className={styles.fields}>
                                 <div className={styles.label}> <FontAwesomeIcon icon={faCalendarDays} className={styles.iconDate} />Due Date</div>
                                 <span className={styles.colon}>:</span>
-                                <span className={styles.value}>{viewTask.dueDate}</span>
+                                <span className={styles.value}>{formatDate(viewTask.dueDate)}</span>
                             </div>
 
                             <div className={styles.fields}>
@@ -149,19 +150,19 @@ function TaskPage() {
                             <div className={styles.fields}>
                                 <div className={styles.label}> <FontAwesomeIcon icon={faFlag} className={styles.iconPrior} />Priority</div>
                                 <span className={styles.colon}>:</span>
-                                <span className={styles.value}>{viewTask.priority}</span>
+                                <span className={`${styles.priorityBg} ${styles[viewTask.priority]}`}>{formatPriority(viewTask.priority)}</span>
                             </div>
 
                             <div className={styles.fields}>
                                 <div className={styles.label}> <FontAwesomeIcon icon={faStopwatch} className={styles.iconHours} />Hours</div>
                                 <span className={styles.colon}>:</span>
-                                <span className={styles.value}>{viewTask.hours}</span>
+                                <span className={styles.value}>{viewTask.hours} hrs</span>
                             </div>
 
                             <div className={styles.fields}>
                                 <div className={styles.label}> <FontAwesomeIcon icon={faLink} className={styles.iconUrl} />URL</div>
                                 <span className={styles.colon}>:</span>
-                                <span className={styles.value}>{viewTask.url}</span>
+                                <span className={styles.value}> <a href={viewTask.url} target="_blank" >Project Link</a></span>
                             </div>
 
                             <div className={styles.fields}>
@@ -173,19 +174,21 @@ function TaskPage() {
                             <div className={styles.fields}>
                                 <div className={styles.label}> <FontAwesomeIcon icon={faLayerGroup} className={styles.iconTType} />Task Type</div>
                                 <span className={styles.colon}>:</span>
-                                <span className={styles.value}>{viewTask.taskType}</span>
+                                <span className={styles.value}>{formatTaskType(viewTask.taskType)}</span>
                             </div>
 
                             <div className={styles.fields}>
                                 <div className={styles.label}> <FontAwesomeIcon icon={faHourglassHalf} className={styles.iconStype} />Status Type</div>
                                 <span className={styles.colon}>:</span>
-                                <span className={styles.value}>{viewTask.statusType} </span>
+                                <span className={`${styles.statusBg} ${styles[viewTask.statusType]}`}>{formatStatus(viewTask.statusType)} </span>
                             </div>
 
-                            <div className={styles.fields}>
-                                <div className={styles.label}> <FontAwesomeIcon icon={faAlignLeft} className={styles.iconDes} />Description</div>
+                            <div className={` ${styles.fields} ${styles.descriptionField}`}>
+                                <div className={styles.label}><FontAwesomeIcon icon={faAlignLeft} className={styles.iconDes} />Description  </div>
                                 <span className={styles.colon}>:</span>
-                                <span className={styles.value}>{viewTask.description} </span>
+                                <div className={styles.descriptionBox}>
+                                    {viewTask.description}
+                                </div>
                             </div>
 
                         </div>
