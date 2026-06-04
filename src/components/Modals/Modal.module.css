@@ -77,7 +77,8 @@
 
 .deleteBtn {
     background: #df2929;
-    color: white; 
+    color: white;
+
     &:hover {
         background: #ce2a2a;
     }
@@ -97,15 +98,13 @@
 }
 
 /* ViewTask modal */
-
 .viewtaskmodal {
     height: 70%;
-    width: 90%;
+    width: 80%;
     margin: 3.5em 0;
-    padding: 0 4em;
+    padding: 1.5em 3em;
     background: rgb(252, 253, 252);
     border-radius: 24px;
-    padding: 1em 2em;
     animation: taskView 0.25s ease;
     box-shadow:
         0 10px 25px rgba(0, 0, 0, 0.15),
@@ -172,18 +171,7 @@
     text-align: center;
 }
 
-.iconName,
-.iconEmail,
-.iconDate,
-.iconTime,
-.iconPrior,
-.iconHours,
-.iconUrl,
-.iconPro,
-.iconTType,
-.iconStype,
-.iconTask,
-.iconDes {
+.iconName, .iconEmail, .iconDate, .iconTime, .iconPrior, .iconHours, .iconUrl, .iconPro, .iconTType, .iconStype, .iconTask, .iconDes {
     margin-right: 0.5em;
 }
 
@@ -251,7 +239,6 @@
 }
 
 /* taskView details */
-
 .taskNameBox {
     margin-top: 1.5em;
     padding: 0;
@@ -280,10 +267,7 @@
     align-items: center;
 }
 
-
-.taskNameBox,
-.priorityStatus,
-.taskTypes, .nameEmail, .dateTimeHour, .taskUrl {
+.taskNameBox, .priorityStatus, .taskTypes, .nameEmail, .dateTimeHour, .taskUrl {
     margin-bottom: 1.3em;
 }
 
@@ -294,12 +278,14 @@
     justify-content: space-between;
 }
 
-.nameEmail .value, .dateTimeHour .value{
+.nameEmail .value,
+.dateTimeHour .value {
     margin-left: 0.2em;
 }
+
 .label {
     color: #686767;
-    cursor:default;
+    cursor: default;
     padding: 0.5em 0.5em 0.5em 0;
 }
 
@@ -367,8 +353,7 @@
 }
 
 
-.priorityBg,
-.statusBg {
+.priorityBg, .statusBg {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -380,8 +365,7 @@
 }
 
 /* dot */
-.priorityBg::before,
-.statusBg::before {
+.priorityBg::before, .statusBg::before {
     content: "";
     width: 10px;
     height: 10px;
@@ -458,10 +442,24 @@
     white-space: pre-wrap;
     word-break: break-word;
     overflow-wrap: break-word;
-    height: 120px;
+    height: auto;
 }
 
+@media (min-width: 1025px) and (max-width: 1167px) {
+    .priorityStatus {
+        gap: 0.5em;
+    }
 
+    .priorityStatus .fields {
+        padding: 0;
+        gap: 0.3em;
+    }
+
+    .statusBg,
+    .priorityBg {
+        padding: 0.3em;
+    }
+}
 
 @media(max-width:600px) {
 
@@ -498,8 +496,49 @@
     }
 
     /* task view modal */
+    .viewtaskmodal {
+        height: auto;
+        width: 90%;
+        padding:1.5em  1em;
+    }
 
-    .viewtaskmodal{
-        border: 1px solid red;
+    .header .editBtn, .header .deleteBtn, .header .closeBtn {
+        font-size: 16px;
+    }
+
+    .taskNameBox h3, .viewtaskmodal .value {
+        font-size: 1em;
+    }
+
+    .fields {
+        width: 100%;
+    }
+
+    .priorityStatus {
+        gap: 0.5em;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .taskTypes {
+        gap: 0;
+        flex-wrap: wrap;
+    }
+
+    .nameEmail {
+        gap: 0.5em;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .dateTimeHour {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .taskUrl {
+        flex-wrap: wrap;
+        gap: 0.5em;
     }
 }
