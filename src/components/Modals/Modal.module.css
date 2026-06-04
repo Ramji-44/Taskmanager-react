@@ -99,8 +99,8 @@
 
 /* ViewTask modal */
 .viewtaskmodal {
-    height: 70%;
-    width: 80%;
+    height: auto;
+    width: 90%;
     margin: 3.5em 0;
     padding: 1.5em 3em;
     background: rgb(252, 253, 252);
@@ -224,7 +224,6 @@
     color: #57b0e4;
 }
 
-
 /* animation */
 @keyframes taskView {
     from {
@@ -240,7 +239,7 @@
 
 /* taskView details */
 .taskNameBox {
-    margin-top: 1.5em;
+    margin-top: 1em;
     padding: 0;
 }
 
@@ -300,6 +299,8 @@
     display: flex;
     align-items: center;
     gap: 1.5em;
+    word-break: break-all;
+    flex-wrap: wrap;
 }
 
 .taskUrl .label {
@@ -352,12 +353,11 @@
     border-radius: 10px;
 }
 
-
 .priorityBg, .statusBg {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.45rem 1rem;
+    padding: 0.2em 1em;
     border-radius: 999px;
     font-size: 0.9rem;
     font-weight: 700;
@@ -365,63 +365,34 @@
 }
 
 /* dot */
-.priorityBg::before, .statusBg::before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-}
-
-
 .high {
-    background: rgb(255, 235, 235);
     color: red;
-}
-
-.high::before {
-    background: red;
+    border: 2px solid red;
 }
 
 .medium {
-    background: rgb(255, 243, 220);
     color: var(--medium);
-}
-
-.medium::before {
-    background: var(--medium);
+    border: 2px solid var(--medium);
 }
 
 .low {
-    background: rgb(225, 245, 230);
     color: var(--low);
-}
-
-.low::before {
-    background: var(--low);
+    border: 2px solid var(--low);
 }
 
 .pending {
     color: var(--medium);
-}
-
-.pending::before {
-    background: var(--medium);
+    border: 2px solid var(--medium);
 }
 
 .inprogress {
     color: var(--highlight);
-}
-
-.inprogress::before {
-    background: var(--highlight);
+    border: 2px solid var(--highlight);
 }
 
 .completed {
     color: var(--low);
-}
-
-.completed::before {
-    background: var(--low);
+    border: 2px solid green;
 }
 
 /* description */
@@ -505,7 +476,9 @@
     .header .editBtn, .header .deleteBtn, .header .closeBtn {
         font-size: 16px;
     }
-
+    .iconTask, .iconStype, .iconPrior, .iconTType, .iconName, .iconEmail, .iconDate, .iconTime, .iconHours, .iconUrl, .iconPro, .iconDes{
+        font-size: 16px;
+    }
     .taskNameBox h3, .viewtaskmodal .value {
         font-size: 1em;
     }
@@ -531,7 +504,9 @@
         justify-content: center;
         flex-direction: column;
     }
-
+    .ProgressValue{
+        font-size: 16px;
+    }
     .dateTimeHour {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
