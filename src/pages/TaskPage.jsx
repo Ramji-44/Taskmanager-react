@@ -6,7 +6,7 @@ import styles from "./TaskPage.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrash, faCircleUser, faEnvelope, faCalendarDays, faClock, faFlag, faStopwatch, faLink, faChartLine, faLayerGroup, faHourglassHalf, faAlignLeft, faColonSign, faFileLines } from "@fortawesome/free-solid-svg-icons"
 import { formatPriority, formatTaskType, formatStatus, formatDate } from "../utils/displayFormat"
-
+import DeleteModal from "../components/Modals/DeleteModal"
 
 function TaskPage() {
 
@@ -33,8 +33,6 @@ function TaskPage() {
     useEffect(() => {
         fetchTasks()
     }, [])
-
-    console.log("useEffect runned ..............for fetching the tasks in tasks page..........", tasks)
 
     function handleEdit(task) {
         setSelectedTask(task)
@@ -93,22 +91,7 @@ function TaskPage() {
 
                 {/* delete modal  */}
                 {delConfirmMsg && (
-                    <div className={styles.overlay}>
-
-                        <div className={styles.confirmBox}>
-                            <p>"This action will permanently delete this task"</p>
-
-                            <div className={styles.deleteText}>
-                                <span>Are you sure want to delete </span>
-                                <h4>{deleteTask.taskName} ?</h4>
-                            </div>
-
-                            <div className={styles.modalBtns}>
-                                <button onClick={cancelDelete} className={styles.cancelBtn} >Cancel</button>
-                                <button onClick={confirmDelete} className={styles.deleteBtn} >Delete</button>
-                            </div>
-                        </div>
-                    </div>
+                    <DeleteModal name={deleteTask.taskName} onCancel={cancelDelete} onConfirm={confirmDelete} />
                 )}
 
                 {/* view task modal */}
