@@ -37,3 +37,11 @@
         padding: 1.5em;
     }
 }
+@media(max-width: 350px){
+    .tasksSection{
+        padding: 1em;
+    }
+    .formSection{
+        padding: 1em;
+    }
+}
