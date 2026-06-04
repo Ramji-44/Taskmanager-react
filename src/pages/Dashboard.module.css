@@ -31,3 +31,9 @@
         height: 1150px;
     }
 }
+
+@media(max-width : 600px){
+    .formSection{
+        padding: 1.5em;
+    }
+}
