@@ -40,8 +40,10 @@ function Tasks({ tasks = [], onEdit, onDelete, onView}) {
                 </div>
             </div>
 
-            <div className={styles.taskCards}>
+            <div className={styles.scrollBar}>
+                <div className={styles.taskCards}>
                 {filterTasks.map(task => (<TaskCards key={task.id} task={task} onEdit={onEdit} onDelete={onDelete} onView={onView} />))}
+            </div>
             </div>
 
         </section>
