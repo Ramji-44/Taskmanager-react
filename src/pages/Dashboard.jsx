@@ -2,12 +2,12 @@ import { useEffect, useState } from "react"
 import Form from "../components/Form/Form"
 import Tasks from "../components/Tasks/Tasks"
 import Toast from "../components/Toast/Toast"
-import styles from "./TaskPage.module.css"
+import styles from "./Dashboard.module.css"
 
 import DeleteModal from "../components/Modals/DeleteModal"
 import ViewTaskModal from "../components/Modals/ViewTaskModal"
 
-function TaskPage() {
+function Dashboard() {
 
     const [tasks, setTasks] = useState([])
     const [selectedTask, setSelectedTask] = useState(null)
@@ -104,4 +104,4 @@ function TaskPage() {
     )
 }
 
-export default TaskPage
+export default Dashboard

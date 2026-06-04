@@ -1,7 +1,7 @@
 import "./App.css"
 import Navbar from "./components/Navbar/Navbar"
 import Footer from "./components/Footer/Footer"
-import TaskPage from "./pages/TaskPage"
+import Dashboard from "./pages/Dashboard"
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
       </div>
 
       <main className="main-container">
-        <TaskPage/>
+        <Dashboard/>
       </main>
 
       <Footer />
