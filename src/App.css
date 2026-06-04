@@ -44,6 +44,12 @@
         0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
+@media (min-width: 1025px) and (max-width: 1167px){
+    .main-container{
+         grid-template-columns: 0.8fr 1.2fr;
+    }
+}
+
 /* tablet view */
 @media (max-width: 1024px) {
 
