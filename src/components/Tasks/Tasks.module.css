@@ -3,13 +3,13 @@
 }
 
 .tasksContainer {
-    height: 1140px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: thin;
+    height: 1150px;
     background: white;
     border-radius: 12px;
     padding: 1rem 1.5em;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .topBar {
@@ -80,8 +80,20 @@
 
 .taskCards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5em;
+}
+
+.scrollContainer {
+    overflow-y: auto;   
+    overflow-x: hidden;
+    scrollbar-width: thin;
+}
+
+.scrollContainer {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
 }
 
 .card {
@@ -288,7 +300,7 @@
 
     .tasksContainer {
         padding: 1em;
-        height: auto;
+        height: 80vh;
         overflow: visible;
     }
 
