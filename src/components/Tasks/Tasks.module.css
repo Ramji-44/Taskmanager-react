@@ -77,23 +77,15 @@
     background: rgba(255, 255, 255, 0.2);
     color: var(--white);
 }
+.scrollBar{
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
 
 .taskCards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5em;
-}
-
-.scrollContainer {
-    overflow-y: auto;   
-    overflow-x: hidden;
-    scrollbar-width: thin;
-}
-
-.scrollContainer {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
 }
 
 .card {
@@ -269,7 +261,14 @@
     background: var(--medium);
 }
 
-@media (max-width: 900px) {
+@media (min-width: 1025px) and (max-width: 1167px) {
+    .topBar{
+        gap: 0.5em;
+    }
+    .filterBtns{
+        width: 100%;
+        justify-content: space-around;
+    }
     .taskCards {
         grid-template-columns: 1fr;
     }
@@ -284,7 +283,6 @@
         font-size: 1em;
     }
 
-
     .filterBtns {
         width: 100%;
         justify-content: space-between;
@@ -296,12 +294,6 @@
     .filterBtns button {
         font-size: 14px;
         padding: 0.2em 0.3em;
-    }
-
-    .tasksContainer {
-        padding: 1em;
-        height: 80vh;
-        overflow: visible;
     }
 
     .taskCards {
@@ -341,14 +333,11 @@
         font-size: 0.8rem;
     }
 
-    .dot,
-    .statusDot {
+    .dot,.statusDot {
         width: 8px;
         height: 8px;
     }
-
-    .editBtn,
-    .deleteBtn {
+    .editBtn,.deleteBtn {
         font-size: 0.9rem;
         padding: 0.1rem;
     }
