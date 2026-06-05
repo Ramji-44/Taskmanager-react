@@ -430,6 +430,9 @@
     .priorityBg {
         padding: 0.3em;
     }
+    .confirmBox{
+        width: 90%;
+    }
 }
 
 @media(max-width:600px) {
