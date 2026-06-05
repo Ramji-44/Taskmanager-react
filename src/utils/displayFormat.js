@@ -22,7 +22,7 @@ export function formatPriority(priority) {
 
 export function formatTaskType(taskTypes) {
     if (!Array.isArray(taskTypes)) return taskTypes
-    return taskTypes.join(", ")
+    return taskTypes.map(type => type.replace("BugFix", "Bug Fix")).join(", ")
 }
 
 
