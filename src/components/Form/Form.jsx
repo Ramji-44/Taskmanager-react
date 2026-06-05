@@ -9,7 +9,7 @@ import Validate from "./CustomValidation.jsx"
 import validateForm from "../../utils/validation.js"
 import { createTask, updateTask } from "../../services/service.js"
 
-const initialFormData = {
+const initialData = {
     taskName: "",
     assigneeName: "",
     assigneeEmail: "",
@@ -24,19 +24,19 @@ const initialFormData = {
     statusType: ""
 }
 
-function Form({ mode = "create", initialData, refreshTasks, setMode, clearEdit, setToast }) {
-    const [data, setData] = useState(initialData || initialFormData)
+function Form({ mode = "create", selectedTaskData, refreshTasks, setMode, clearEdit, setToast }) {
+    const [data, setData] = useState(selectedTaskData || initialData)
 
     const [errors, setErrors] = useState({})
 
     useEffect(() => {
-        if (mode === "edit" && initialData?.id) {
-            setData(initialData)
+        if (mode === "edit" && selectedTaskData?.id) {
+            setData(selectedTaskData)
         }
         else {
-            setData(initialFormData)
+            setData(initialData)
         }
-    }, [initialData, mode])
+    }, [selectedTaskData, mode])
 
 
     function handleChange(e) {
@@ -84,12 +84,12 @@ function Form({ mode = "create", initialData, refreshTasks, setMode, clearEdit, 
     function handleReset() {
         setErrors({})
         if (mode === "edit") {
-            setData(initialFormData)
+            setData(initialData)
             setMode("create")
 
             clearEdit()
         }
-        setData(initialFormData)
+        setData(initialData)
     }
 
     return (
