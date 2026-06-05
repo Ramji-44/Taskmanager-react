@@ -3,7 +3,8 @@
 }
 
 .tasksContainer {
-    height: 1150px;
+    height: auto;
+    min-height: 1150px;
     background: white;
     border-radius: 12px;
     padding: 1rem 1.5em;
