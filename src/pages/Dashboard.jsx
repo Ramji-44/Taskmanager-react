@@ -3,9 +3,9 @@ import Form from "../components/Form/Form"
 import Tasks from "../components/Tasks/Tasks"
 import Toast from "../components/Toast/Toast"
 import styles from "./Dashboard.module.css"
-
 import DeleteModal from "../components/Modals/DeleteModal"
 import ViewTaskModal from "../components/Modals/ViewTaskModal"
+import {getTasks, removeTask} from "../services/service"
 
 function Dashboard() {
 
@@ -13,17 +13,14 @@ function Dashboard() {
     const [selectedTask, setSelectedTask] = useState(null)
     const [mode, setMode] = useState("create")
 
-    const [delConfirmMsg, setDelConfirmMsg] = useState(false)
     const [deleteTask, setDeleteTask] = useState(null)
 
     const [toast, setToast] = useState({ visible: false, message: "", type: "" })
     const [viewTask, setViewTask] = useState(null)
 
     function fetchTasks() {
-        fetch("http://localhost:4000/tasks")
-            .then((res) => res.json())
+            getTasks()
             .then((data) => {
-                console.log("fetching data ................. ", data)
                 setTasks(data.reverse())
             })
             .catch((err) => console.log(err))
@@ -45,11 +42,9 @@ function Dashboard() {
 
     function handleDelete(task) {
         setDeleteTask(task)
-        setDelConfirmMsg(true)
     }
 
     function cancelDelete() {
-        setDelConfirmMsg(false)
         setDeleteTask(null)
     }
 
@@ -63,14 +58,10 @@ function Dashboard() {
 
 
     function confirmDelete() {
-        fetch(`http://localhost:4000/tasks/${deleteTask.id}`, {
-            method: "DELETE"
-        })
-            .then((res) => res.json())
+        removeTask(deleteTask)
             .then(() => {
                 setTasks((prev) => prev.filter((task) => task.id !== deleteTask.id))
 
-                setDelConfirmMsg(false)
                 setDeleteTask(null)
 
                 setToast({ visible: true, message: "Task Deleted Successfully", type: "error" })
@@ -89,7 +80,7 @@ function Dashboard() {
                 {tasks.length === 0 ? (<h2 className={styles.emptyState}>No tasks found</h2>) : (<Tasks tasks={tasks} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} />)}
 
                 {/* delete modal  */}
-                {delConfirmMsg && (
+                {deleteTask && (
                     <DeleteModal name={deleteTask.taskName} onCancel={cancelDelete} onConfirm={confirmDelete} />
                 )}
 
