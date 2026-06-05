@@ -167,3 +167,16 @@ input:-webkit-autofill:focus {
         gap: 2.1em;
     }
 }
+
+@media(min-width: 601px) and (max-width: 728px){
+    .taskTypes, .statusTypes{
+        gap: 0;
+        padding: 0;
+    }
+    .taskTypes p{
+        padding-right: 0.5em;
+    }
+    .statusTypes p{
+        padding-right: 2em;
+    }
+}
