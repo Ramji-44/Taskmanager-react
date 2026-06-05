@@ -72,7 +72,7 @@ function Dashboard() {
     return (
         <>
             <div className={styles.formSection}>
-                <Form mode={mode} initialData={selectedTask} refreshTasks={fetchTasks} setMode={setMode} clearEdit={resetEdit} setToast={setToast} />
+                <Form mode={mode} selectedTaskData={selectedTask} refreshTasks={fetchTasks} setMode={setMode} clearEdit={resetEdit} setToast={setToast} />
             </div>
 
             <div className={styles.tasksSection}>
