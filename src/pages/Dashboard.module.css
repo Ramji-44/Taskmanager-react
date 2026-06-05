@@ -36,6 +36,9 @@
     .formSection{
         padding: 1.5em;
     }
+    .tasksSection{
+        height: 1150px;
+    }
 }
 @media(max-width: 350px){
     .tasksSection{
