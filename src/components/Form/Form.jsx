@@ -66,8 +66,8 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, setMode, clearE
             return
         }
 
-        const taskAction = (mode === "edit" ? updateTask(data) : createTask(data))
-            .then((result) => {
+        const taskAction = mode === "edit" ? updateTask(data) : createTask(data)
+            taskAction.then((result) => {
                 handleReset()
                 refreshTasks()
 
@@ -83,13 +83,11 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, setMode, clearE
 
     function handleReset() {
         setErrors({})
+        setData(initialData)
         if (mode === "edit") {
-            setData(initialData)
             setMode("create")
-
             clearEdit()
         }
-        setData(initialData)
     }
 
     return (
