@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClipboardList, faCheck, faXmark } from "@fortawesome/free-solid-svg-icons"
 import Validate from "./CustomValidation.jsx"
 import validateForm from "../../utils/validation.js"
+import { createTask, updateTask } from "../../services/service.js"
 
 const initialFormData = {
     taskName: "",
@@ -24,8 +25,6 @@ const initialFormData = {
 }
 
 function Form({ mode = "create", initialData, refreshTasks, setMode, clearEdit, setToast }) {
-
-    console.log("form ....  re-renders")
     const [data, setData] = useState(initialData || initialFormData)
 
     const [errors, setErrors] = useState({})
@@ -53,46 +52,34 @@ function Form({ mode = "create", initialData, refreshTasks, setMode, clearEdit, 
         })
     }
 
-
-
     function handleSubmit(e) {
         e.preventDefault()
 
         const validationErrors = validateForm(data)
+
         if (Object.keys(validationErrors).length > 0) {
             const firstError = Object.keys(validationErrors)[0]
-            setErrors({[firstError]: validationErrors[firstError]})
+
+            setErrors({ [firstError]: validationErrors[firstError] })
 
             document.querySelector(`[name="${firstError}"]`)?.focus()
             return
         }
 
-        const url = mode === "edit" ? `http://localhost:4000/tasks/${data.id}` : "http://localhost:4000/tasks"
-        const method = mode === "edit" ? "PUT" : "POST"
-
-        fetch(url, {
-            method,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        })
-            .then((res) => res.json())
+        const taskAction = (mode === "edit" ? updateTask(data) : createTask(data))
             .then((result) => {
-                console.log(result)
-
                 handleReset()
                 refreshTasks()
-                
+
                 setToast({ visible: true, message: mode === "edit" ? "Task Updated Successfully" : "Task Created Successfully", type: mode === "edit" ? "update" : "success" })
 
                 setMode("create")
                 clearEdit()
-
             })
             .catch((error) => {
                 console.log(error)
             })
     }
-
 
     function handleReset() {
         setErrors({})
@@ -104,7 +91,6 @@ function Form({ mode = "create", initialData, refreshTasks, setMode, clearEdit, 
         }
         setData(initialFormData)
     }
-
 
     return (
         <form className={styles.taskform} onSubmit={handleSubmit} noValidate>
