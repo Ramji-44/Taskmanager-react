@@ -268,7 +268,7 @@
         justify-content: space-around;
     }
     .taskCards {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0,1fr);
     }
 }
 @media (max-width: 635px) {
