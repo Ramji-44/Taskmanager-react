@@ -180,3 +180,9 @@ input:-webkit-autofill:focus {
         padding-right: 2em;
     }
 }
+
+@media(min-width: 1484px) and (max-width: 2000px){
+    .statusTypes, .taskTypes{
+        width: 370px;
+    }
+}
