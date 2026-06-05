@@ -16,7 +16,15 @@ export function createTask(data){
         },
         body: JSON.stringify(data)
     })
-    .then((res) => res.json())
+    .then((res) => {
+        return res.json()
+        .then((result) => {
+            if(!res.ok){
+                throw new Error(result.error)
+            }
+            return result
+        })
+    })
 }
 
 
@@ -28,7 +36,15 @@ export function updateTask(task){
         },
         body: JSON.stringify(task)
     })
-    .then((res) => res.json())
+    .then((res) => {
+        return res.json()
+        .then((result) => {
+            if(!res.ok){
+                throw new Error(result.error)
+            }
+            return result
+        })
+    })
 }
 
 
