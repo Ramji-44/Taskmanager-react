@@ -6,11 +6,9 @@
         0px 0px 2px rgba(0, 0, 0, 0.2),
         /* top shadow */
         0 5px 10px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
 }
 
 .tasksSection {
-    position: relative;
     overflow: hidden;
     background-color: var(--white);
     border-radius: 10px;

@@ -22,7 +22,6 @@
     grid-template-columns: 0.5fr 1fr;
     gap: 2em;
     padding: 0 4em;
-    background-color: #f8f8f8;
 }
 
 @media (min-width: 1025px) and (max-width: 1167px){
