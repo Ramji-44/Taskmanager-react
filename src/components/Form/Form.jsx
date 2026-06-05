@@ -33,9 +33,6 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, setMode, clearE
         if (mode === "edit" && selectedTaskData?.id) {
             setData(selectedTaskData)
         }
-        else {
-            setData(initialData)
-        }
     }, [selectedTaskData, mode])
 
 
@@ -72,12 +69,15 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, setMode, clearE
                 refreshTasks()
 
                 setToast({ visible: true, message: mode === "edit" ? "Task Updated Successfully" : "Task Created Successfully", type: mode === "edit" ? "update" : "success" })
-
-                setMode("create")
-                clearEdit()
             })
             .catch((error) => {
-                console.log(error)
+                if(error.message === "Task already exists"){   // backend error
+                    setErrors({
+                        taskName: "Task already exists"
+                    })
+                    document.querySelector('[name="taskName"]')?.focus()
+                    return
+                }
             })
     }
 
@@ -85,7 +85,6 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, setMode, clearE
         setErrors({})
         setData(initialData)
         if (mode === "edit") {
-            setMode("create")
             clearEdit()
         }
     }
