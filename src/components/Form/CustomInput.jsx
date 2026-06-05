@@ -2,8 +2,6 @@ import styles from "./Form.module.css"
 
 const CustomInput = (function CustomInput({ id, label, type = "text", placeholder, value, onChange, endLabel, name, min, max, step, checked }) {
 
-    console.log(name, "......................................................rerendered")
-
     if (type === "checkbox" || type === "radio") {
         return (
             <label className={styles.checkRadioWrap} htmlFor={id}>
