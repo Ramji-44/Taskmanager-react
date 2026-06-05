@@ -4,7 +4,6 @@ import { faPenToSquare, faTrash, faCalendarDays, faUser } from "@fortawesome/fre
 import { formatStatus, formatDate } from "../../utils/displayFormat"
 
 function TaskCards({ task, onEdit, onDelete, onView }) {
-    console.log("no. of task fetched :", task)
     
     return (
         <div className={styles.card} onClick={() => onView(task)}>
