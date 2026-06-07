@@ -32,8 +32,11 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setT
     useEffect(() => {
         if (mode === "edit" && selectedTaskData?.id) {
             setData(selectedTaskData)
-            setErrors({})
         }
+        else {
+            setData(initialData)  // clear form, when edit & delete the same task
+        }
+        setErrors({})   // clear validation error
     }, [selectedTaskData, mode])
 
 
@@ -48,7 +51,7 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setT
             // other inputs
             return { ...prev, [name]: value }
         })
-            setErrors(prev => ({ ...prev, [name]: "" }))
+        setErrors(prev => ({ ...prev, [name]: "" }))
     }
 
     function handleSubmit(e) {
