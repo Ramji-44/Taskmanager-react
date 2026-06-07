@@ -24,7 +24,7 @@ const initialData = {
     statusType: ""
 }
 
-function Form({ mode = "create", selectedTaskData, refreshTasks, clearEdit, setToast }) {
+function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setToast }) {
     const [data, setData] = useState(selectedTaskData || initialData)
 
     const [errors, setErrors] = useState({})
@@ -87,7 +87,7 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, clearEdit, setT
         setErrors({})
         setData(initialData)
         if (mode === "edit") {
-            clearEdit()
+            resetEdit()
         }
     }
 
