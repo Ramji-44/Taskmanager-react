@@ -48,6 +48,7 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, clearEdit, setT
             // other inputs
             return { ...prev, [name]: value }
         })
+            setErrors(prev => ({ ...prev, [name]: "" }))
     }
 
     function handleSubmit(e) {
@@ -65,14 +66,14 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, clearEdit, setT
         }
 
         const taskAction = mode === "edit" ? updateTask(data) : createTask(data)
-            taskAction.then((result) => {
-                handleReset()
-                refreshTasks()
+        taskAction.then((result) => {
+            handleReset()
+            refreshTasks()
 
-                setToast({ visible: true, message: mode === "edit" ? "Task Updated Successfully" : "Task Created Successfully", type: mode === "edit" ? "update" : "success" })
-            })
+            setToast({ visible: true, message: mode === "edit" ? "Task Updated Successfully" : "Task Created Successfully", type: mode === "edit" ? "update" : "success" })
+        })
             .catch((error) => {
-                if(error.message === "Task already exists"){   // backend error
+                if (error.message === "Task already exists") {   // backend error
                     setErrors({
                         taskName: "Task already exists"
                     })
