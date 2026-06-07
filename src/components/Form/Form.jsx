@@ -32,6 +32,7 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, setMode, clearE
     useEffect(() => {
         if (mode === "edit" && selectedTaskData?.id) {
             setData(selectedTaskData)
+            setErrors({})
         }
     }, [selectedTaskData, mode])
 
