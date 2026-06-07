@@ -1,5 +1,5 @@
 import styles from "./Form.module.css"
-import { useState, useCallback, useEffect } from "react"
+import { useState, useEffect } from "react"
 import CustomInput from "./CustomInput.jsx"
 import CustomButton from "../Buttons/CustomButton"
 import buttonStyles from "../Buttons/Button.module.css"
@@ -24,7 +24,7 @@ const initialData = {
     statusType: ""
 }
 
-function Form({ mode = "create", selectedTaskData, refreshTasks, setMode, clearEdit, setToast }) {
+function Form({ mode = "create", selectedTaskData, refreshTasks, clearEdit, setToast }) {
     const [data, setData] = useState(selectedTaskData || initialData)
 
     const [errors, setErrors] = useState({})
