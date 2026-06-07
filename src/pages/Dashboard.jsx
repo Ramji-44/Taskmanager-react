@@ -5,7 +5,7 @@ import Toast from "../components/Toast/Toast"
 import styles from "./Dashboard.module.css"
 import DeleteModal from "../components/Modals/DeleteModal"
 import ViewTaskModal from "../components/Modals/ViewTaskModal"
-import {getTasks, removeTask} from "../services/service"
+import { getTasks, removeTask } from "../services/service"
 
 function Dashboard() {
 
@@ -19,7 +19,7 @@ function Dashboard() {
     const [viewTask, setViewTask] = useState(null)
 
     function fetchTasks() {
-            getTasks()
+        getTasks()
             .then((data) => {
                 setTasks(data.reverse())
             })
@@ -62,6 +62,9 @@ function Dashboard() {
             .then(() => {
                 setTasks((prev) => prev.filter((task) => task.id !== deleteTask.id))
 
+                if (selectedTask?.id === deleteTask.id) {    // if same task is being edited, and also deleted- clears form
+                    resetEdit()
+                }
                 setDeleteTask(null)
 
                 setToast({ visible: true, message: "Task Deleted Successfully", type: "error" })
@@ -72,7 +75,7 @@ function Dashboard() {
     return (
         <>
             <div className={styles.formSection}>
-                <Form mode={mode} selectedTaskData={selectedTask} refreshTasks={fetchTasks}  resetEdit={resetEdit} setToast={setToast} />
+                <Form mode={mode} selectedTaskData={selectedTask} refreshTasks={fetchTasks} resetEdit={resetEdit} setToast={setToast} />
             </div>
 
             <div className={styles.tasksSection}>
@@ -86,7 +89,7 @@ function Dashboard() {
 
                 {/* view task modal */}
                 {viewTask && (
-                    <ViewTaskModal onClose={setViewTask} taskName={viewTask.taskName} status={viewTask.statusType} statusType={viewTask.statusType} priority={viewTask.priority} taskType={viewTask.taskType} assigneeName={viewTask.assigneeName} assigneeEmail={viewTask.assigneeEmail} dueDate={viewTask.dueDate} dueTime={viewTask.dueTime} hours ={viewTask.hours} url={viewTask.url} progress={viewTask.progress} description={viewTask.description}/>
+                    <ViewTaskModal onClose={setViewTask} taskName={viewTask.taskName} status={viewTask.statusType} statusType={viewTask.statusType} priority={viewTask.priority} taskType={viewTask.taskType} assigneeName={viewTask.assigneeName} assigneeEmail={viewTask.assigneeEmail} dueDate={viewTask.dueDate} dueTime={viewTask.dueTime} hours={viewTask.hours} url={viewTask.url} progress={viewTask.progress} description={viewTask.description} />
                 )}
             </div >
 
