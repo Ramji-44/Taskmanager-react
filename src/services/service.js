@@ -2,55 +2,42 @@
 
 const URL = "http://localhost:4000/tasks"
 
-export function getTasks(){
-    return fetch(URL)
-        .then((res) => res.json())
+async function apiCall(url, options = {}) {
+    const response = await fetch(url, options)
+    const result = await response.json()
+
+    if (!response.ok) {
+        throw new Error(result.error)
+    }
+    return result
 }
 
+export function getTasks() {
+    return apiCall(URL)
+}
 
-export function createTask(data){
-    return fetch(URL, {
-        method : "POST",
-        headers : {
-            "Content-Type" : "application/json"
+export function createTask(data) {
+    return apiCall(URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     })
-    .then((res) => {
-        return res.json()
-        .then((result) => {
-            if(!res.ok){
-                throw new Error(result.error)
-            }
-            return result
-        })
-    })
 }
 
-
-export function updateTask(task){
-    return fetch(`${URL}/${task.id}`, {
-        method : "PUT",
-        headers : {
-            "Content-Type" : "application/json"
+export function updateTask(task) {
+    return apiCall(`${URL}/${task.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(task)
     })
-    .then((res) => {
-        return res.json()
-        .then((result) => {
-            if(!res.ok){
-                throw new Error(result.error)
-            }
-            return result
-        })
-    })
 }
 
-
-export function removeTask(task){
-    return fetch(`${URL}/${task.id}` , {
-        method : "DELETE"
+export function removeTask(task) {
+    return apiCall(`${URL}/${task.id}`, {
+        method: "DELETE"
     })
-    .then((res) => res.json())
 }
