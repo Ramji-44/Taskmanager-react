@@ -1,19 +1,8 @@
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    z-index: 999;
-}
-
 .confirmBox {
-    width: 60%;
+    margin: 0;
     background: var(--white);
     border-radius: 14px;
-    padding: 2em;
-    margin-top: 15%;
+    padding: 2em 4em;
     animation: deletePopup 0.25s ease;
     display: flex;
     flex-direction: column;
@@ -100,15 +89,16 @@
 /* ViewTask modal */
 .viewtaskmodal {
     height: auto;
-    width: 90%;
-    margin: 3.5em 0;
+    width: 70%;
+    margin: 0;
+    overflow: hidden;
     padding: 1.5em 3em;
     background: rgb(252, 253, 252);
     border-radius: 24px;
     animation: taskView 0.25s ease;
     box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.15),
-        0 20px 40px rgba(0, 0, 0, 0.15);
+         0 5px 15px rgba(0, 0, 0, 0.15),
+         0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 .viewtaskmodal .header {
