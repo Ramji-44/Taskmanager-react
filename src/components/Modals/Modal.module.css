@@ -58,10 +58,10 @@
 
 .cancelBtn {
     background: #e5e7eb;
-}
 
-.cancelBtn:hover {
-    background: #cfd1d4;
+    &:hover {
+        background: #cfd1d4;
+    }
 }
 
 .deleteBtn {
@@ -88,81 +88,206 @@
 
 /* ViewTask modal */
 .viewtaskmodal {
-    height: auto;
-    width: 70%;
+    max-height: 600px;
+    width: 80%;
     margin: 0;
     overflow: hidden;
-    padding: 1.5em 3em;
-    background: rgb(252, 253, 252);
-    border-radius: 24px;
+    padding: 1em;
+    background: var(--white);
+    border-radius: 14px;
     animation: taskView 0.25s ease;
     box-shadow:
-         0 5px 15px rgba(0, 0, 0, 0.15),
-         0 10px 30px rgba(0, 0, 0, 0.15);
+        0 5px 15px rgba(0, 0, 0, 0.15),
+        0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.viewtaskmodal .scrollBar {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 1.5rem;
+    flex: 1;
+    overflow: hidden;
 }
 
 .viewtaskmodal .header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 0;
     margin: 0;
-    font-size: 1em;
+}
+
+.header span {
+    color: #585858;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.viewtaskmodal button {
+    border: none;
+    font-size: 1.2em;
+    padding: 0.3em;
+    color: black;
+    border-radius: 50%;
+    background: #ebe7e7;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--white);
+        background: black;
+    }
+}
+
+.leftBox {
+    max-height: 350px;
+    padding: 1em;
+    overflow: hidden;
+    padding: 0.5em 1em;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    border-radius: 10px;
+    border: 1px solid var(--bordercolor);
+}
+
+.rightBox {
+    height: 350px;
+    padding: 0.5em 1em;
+    border-radius: 10px;
+    border: 1px solid var(--bordercolor);
+}
+
+.taskName {
+    display: flex;
+    padding: 0.4em 0 0.4em;
+    font-weight: 600;
+    font-size: 1.3em;
+    margin: 0;
+}
+
+/* description */
+.descriptionField {
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.descriptionField .descriptionBox {
+    min-height: fit-content;
+    background: #ececee;
+    border-radius: 10px;
+    padding: 0.5em;
+    line-height: 1.7;
+    color: #333;
+    text-align: justify;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* progress */
+.taskProgress {
+    margin: 1em 0 0.5em;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.viewtaskmodal button:hover {
-    cursor: pointer;
-    transition: background 0.2s ease-in-out;
+.ProgressValue {
+    font-size: 1.1em;
+    padding: 0.1em 0.2em;
+    border-radius: 5px;
+    background-color: #ebf1f5;
+    color: #0841fd;
+    border: 1px solid #074799;
 }
 
-.viewtaskmodal .editBtn {
+.progressContainer {
+    width: 100%;
+    margin-top: 0.5em;
+}
+
+.progressBar {
+    width: 100%;
+    height: 12px;
     border: none;
-    font-size: 1.3em;
-    padding: 0.3em;
-    background: transparent;
-    color: var(--highlight);
+    overflow: hidden;
+}
+
+/* Track */
+.progressBar::-webkit-progress-bar {
+    background-color: #e5e7eb;
+    border-radius: 10px;
+}
+
+/* Filled part */
+.progressBar::-webkit-progress-value {
+    background-color: #0841fd;
+    border-radius: 10px;
+}
+
+.progressBar::-moz-progress-bar {
+    background-color: #0841fd;
+    border-radius: 10px;
+}
+
+.fields {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8em;
+}
+
+.label {
+    width: 170px;
+    color: #686767;
+    cursor: default;
+    padding: 0.5em 0.5em 0.5em 0;
+}
+
+.value {
+    display: inline-block;
+    cursor: default;
+    padding: 0;
+    font-size: 1.08em;
+}
+
+.rightBox .value {
+    width: 200px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.taskUrl {
+    display: flex;
+    align-items: center;
+    padding: 1em 1em 0 0;
+    word-break: break-all;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+}
+
+.taskUrl .label {
+    padding: 0;
+}
+
+.taskTypes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.priorityBg, .statusBg {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5em 1em;
     border-radius: 999px;
-}
-
-.viewtaskmodal .editBtn:hover {
-    color: var(--white);
-    background-color: #1591DC;
-}
-
-.viewtaskmodal .deleteBtn {
-    border: none;
-    padding: 0.3em;
-    font-size: 1.3em;
-    color: #ce2a2a;
-    border-radius: 999px;
-    background-color: transparent;
-}
-
-.viewtaskmodal .deleteBtn:hover {
-    color: var(--white);
-    background-color: #FF0000;
-}
-
-.viewtaskmodal .closeBtn {
-    margin-left: auto;
-    text-align: center;
-    border: none;
-    font-size: 1.2em;
-    color: var(--white);
-    padding: 0.3em 0.7em;
-    border-radius: 999px;
-    background-color: black;
-}
-
-.closeBtn:hover {
-    background-color: #333;
-}
-
-.viewtaskmodal h3 {
-    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 700;
 }
 
 .iconName, .iconEmail, .iconDate, .iconTime, .iconPrior, .iconHours, .iconUrl, .iconPro, .iconTType, .iconStype, .iconTask, .iconDes {
     margin-right: 0.5em;
+    font-size: 18px;
 }
 
 .iconName {
@@ -210,7 +335,6 @@
 }
 
 .iconTask {
-    font-size: 1.2em;
     color: #57b0e4;
 }
 
@@ -227,134 +351,6 @@
     }
 }
 
-/* taskView details */
-.taskNameBox {
-    margin-top: 1em;
-    padding: 0;
-}
-
-.taskNameBox h3 {
-    margin: 0 0 0 0.2em;
-    text-align: left;
-}
-
-.priorityStatus {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.priorityStatus .fields {
-    display: flex;
-    gap: 2em;
-}
-
-.taskTypes {
-    width: 100%;
-    display: flex;
-    gap: 1em;
-    align-items: center;
-}
-
-.taskNameBox, .priorityStatus, .taskTypes, .nameEmail, .dateTimeHour, .taskUrl {
-    margin-bottom: 1.3em;
-}
-
-.nameEmail,
-.dateTimeHour {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.nameEmail .value,
-.dateTimeHour .value {
-    margin-left: 0.2em;
-}
-
-.label {
-    color: #686767;
-    cursor: default;
-    padding: 0.5em 0.5em 0.5em 0;
-}
-
-.value {
-    display: inline-block;
-    cursor: default;
-    padding: 0;
-    font-size: 1.08em;
-}
-
-.taskUrl {
-    display: flex;
-    align-items: center;
-    gap: 1.5em;
-    word-break: break-all;
-    flex-wrap: wrap;
-}
-
-.taskUrl .label {
-    padding: 0;
-}
-
-.taskProgress {
-    margin: 0.5em 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.ProgressValue {
-    font-size: 1.1em;
-    padding: 0.1em 0.2em;
-    border-radius: 5px;
-    background-color: #ebf1f5;
-    color: #0841fd;
-    border: 1px solid #074799;
-}
-
-.progressContainer {
-    width: 100%;
-    margin-top: 0.5em;
-}
-
-.progressBar {
-    width: 100%;
-    height: 12px;
-    border: none;
-    overflow: hidden;
-}
-
-/* Track */
-.progressBar::-webkit-progress-bar {
-    background-color: #e5e7eb;
-    border-radius: 10px;
-}
-
-/* Filled part */
-.progressBar::-webkit-progress-value {
-    background-color: #0841fd;
-    border-radius: 10px;
-}
-
-/* Firefox */
-.progressBar::-moz-progress-bar {
-    background-color: #0841fd;
-    border-radius: 10px;
-}
-
-.priorityBg, .statusBg {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.2em 1em;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    border: 1px solid rgb(255, 235, 235);
-}
-
-/* dot */
 .high {
     color: red;
     border: 2px solid red;
@@ -385,128 +381,170 @@
     border: 2px solid green;
 }
 
-/* description */
-.descriptionField {
-    margin-top: 1.5em;
-    flex-wrap: wrap;
-    align-items: flex-start;
-
-}
-
-.descriptionField .descriptionBox {
-    flex: 1 1 100%;
-    background: #e8e9eb;
-    border-radius: 16px;
-    padding: 1.2em;
-    line-height: 1.7;
-    color: #333;
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    height: auto;
-}
 
 @media (min-width: 1025px) and (max-width: 1167px) {
-    .priorityStatus {
-        gap: 0.5em;
-    }
 
-    .priorityStatus .fields {
-        padding: 0;
-        gap: 0.3em;
-    }
-
-    .statusBg,
-    .priorityBg {
+    .statusBg,.priorityBg {
         padding: 0.3em;
     }
-    .confirmBox{
+
+    .confirmBox {
         width: 90%;
     }
 }
 
-@media(max-width:600px) {
-
-    /* delete confirmation modal */
-    .confirmBox {
-        font-size: 0.9em;
-        width: auto;
-        padding: 1em;
-    }
-
-    .confirmBox p {
-        margin: 0;
-        font-size: 0.9em;
-    }
-
-    .deleteText {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-    }
-
-    .deleteText span {
-        font-size: 0.9em;
-    }
-
-    .deleteText h4 {
-        font-size: 1em;
-    }
-
-    .modalBtns button {
-        margin: 0;
-        font-size: 1em;
-        padding: 0.5em 0.7em;
-    }
-
-    /* task view modal */
+@media(min-width: 601px) and (max-width: 1024px) {
     .viewtaskmodal {
         height: auto;
-        width: 90%;
-        padding:1.5em  1em;
+        overflow-y: visible;
     }
 
-    .header .editBtn, .header .deleteBtn, .header .closeBtn {
-        font-size: 16px;
-    }
-    .iconTask, .iconStype, .iconPrior, .iconTType, .iconName, .iconEmail, .iconDate, .iconTime, .iconHours, .iconUrl, .iconPro, .iconDes{
-        font-size: 16px;
-    }
-    .taskNameBox h3, .viewtaskmodal .value {
-        font-size: 1em;
+    .leftBox, .rightBox {
+        max-height: none;
+        border: none;
     }
 
-    .fields {
+    .viewtaskmodal .scrollBar {
+        grid-template-columns: 1fr;
+        gap: 0;
+        border-radius: 8px;
+        border: 1px solid var(--bordercolor);
+    }
+
+    .priorStatuscontainer, .timeAndHours {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .priorStatuscontainer .fields, .timeAndHours .fields {
         width: 100%;
     }
 
-    .priorityStatus {
-        gap: 0.5em;
-        justify-content: center;
-        flex-direction: column;
+    .rightBox {
+        height: fit-content;
     }
 
-    .taskTypes {
-        gap: 0;
-        flex-wrap: wrap;
+    .rightBox .value {
+        width: auto;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .confirmBox {
+        width: 90%;
+        padding: 1em;
+        font-size: 0.9rem;
     }
 
-    .nameEmail {
-        gap: 0.5em;
-        flex-wrap: wrap;
-        justify-content: center;
+    .confirmBox p {
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .deleteText {
         flex-direction: column;
+        text-align: center;
+        gap: 0.3rem;
     }
-    .ProgressValue{
-        font-size: 16px;
+
+    .deleteText span, .deleteText h4 {
+        font-size: 0.95rem;
     }
-    .dateTimeHour {
+
+    .modalBtns button {
+        padding: 0.6em 1em;
+        font-size: 0.9rem;
+    }
+
+    .viewtaskmodal {
+        width: 90%;
+        max-height: 90vh;
+        padding: 1rem;
+        overflow-y: auto;
+    }
+
+    .viewtaskmodal .scrollBar {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+        gap: 0;
     }
 
-    .taskUrl {
+    .leftBox, .rightBox {
+        height: auto;
+        max-height: none;
+        border: none;
+        padding: 0.5rem 0;
+    }
+
+    .taskName {
+        font-size: 1.1rem;
+        word-break: break-word;
+    }
+
+    .fields {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        align-items: start;
+        gap: 0.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .label {
+        width: auto;
+        padding: 0;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .value {
+        width: auto;
+        font-size: 0.95rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .rightBox .value {
+        width: auto;
+    }
+
+    .priorStatuscontainer {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .priorityBg, .statusBg {
+        width: fit-content;
+        justify-self: start;
+        display: inline-flex;
+    }
+
+    .timeAndHours {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .descriptionField .label {
+        margin-bottom: 0.5rem;
+    }
+
+    .taskTypes, .taskUrl {
         flex-wrap: wrap;
-        gap: 0.5em;
+        gap: 0.5rem;
+    }
+
+    .taskUrl a {
+        word-break: break-all;
+    }
+
+    .ProgressValue {
+        font-size: 1rem;
+    }
+
+    .descriptionField .descriptionBox {
+        font-size: 0.95rem;
     }
 }
