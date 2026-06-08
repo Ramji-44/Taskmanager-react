@@ -111,8 +111,11 @@ export default function validateForm(data) {
     else if (!NumLettersRegEx(data.description.trim())) {
         errors.description = "Only letters, numbers and spaces are allowed."
     }
-    else if (data.description.trim().length > 200) {
-        errors.description = "Description cannot exceed 200 characters."
+    else if (data.description.trim().length < 150) {
+        errors.description = "Description must be atleast 150 characters."
+    }
+    else if (data.description.trim().length > 500) {
+        errors.description = "Description cannot exceed 500 characters."
     }
 
     // task type
