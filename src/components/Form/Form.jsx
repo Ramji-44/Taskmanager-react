@@ -176,7 +176,7 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setT
             </div>
 
             <div className={styles.box}>
-                <textarea name="description" placeholder="Task Description *" value={data.description} onChange={handleChange} maxLength={200} />
+                <textarea name="description" placeholder="Task Description *" value={data.description} onChange={handleChange} maxLength={500} />
                 <div className={styles.errorMessage}>
                     {errors.description && <Validate message={errors.description} />}
                 </div>
