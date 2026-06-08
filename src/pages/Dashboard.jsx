@@ -82,14 +82,11 @@ function Dashboard() {
 
                 {tasks.length === 0 ? (<h2 className={styles.emptyState}>No tasks found</h2>) : (<Tasks tasks={tasks} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} />)}
 
-                {/* delete modal  */}
-                {deleteTask && (
-                    <DeleteModal name={deleteTask.taskName} onCancel={cancelDelete} onConfirm={confirmDelete} />
-                )}
-
-                {/* view task modal */}
-                {viewTask && (
-                    <ViewTaskModal onClose={setViewTask} taskName={viewTask.taskName} status={viewTask.statusType} statusType={viewTask.statusType} priority={viewTask.priority} taskType={viewTask.taskType} assigneeName={viewTask.assigneeName} assigneeEmail={viewTask.assigneeEmail} dueDate={viewTask.dueDate} dueTime={viewTask.dueTime} hours={viewTask.hours} url={viewTask.url} progress={viewTask.progress} description={viewTask.description} />
+                {(deleteTask || viewTask) && (
+                    <div className={styles.overlay}>
+                        {deleteTask && ( <DeleteModal name={deleteTask.taskName} onCancel={cancelDelete} onConfirm={confirmDelete} /> )}
+                        {viewTask && ( <ViewTaskModal onClose={setViewTask} taskName={viewTask.taskName} status={viewTask.statusType} statusType={viewTask.statusType} priority={viewTask.priority} taskType={viewTask.taskType} assigneeName={viewTask.assigneeName} assigneeEmail={viewTask.assigneeEmail} dueDate={viewTask.dueDate} dueTime={viewTask.dueTime} hours={viewTask.hours} url={viewTask.url} progress={viewTask.progress} description={viewTask.description} /> )}
+                    </div>
                 )}
             </div >
 
