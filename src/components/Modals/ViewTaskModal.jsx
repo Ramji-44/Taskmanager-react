@@ -50,12 +50,12 @@ export default function ViewTaskModal({ onClose, taskName, status, priority, tas
                     <div className={styles.priorStatuscontainer}>
                         <div className={styles.fields}>
                             <div className={styles.label}> <FontAwesomeIcon icon={faFlag} className={styles.iconPrior} />Priority</div>
-                            <div className={`${styles.priorityBg} ${styles[priority]}`}>{formatPriority(priority)}</div>
+                            <div className={`${styles.value} ${styles[priority]}`}>{formatPriority(priority)}</div>
                         </div>
 
                         <div className={styles.fields}>
                             <div className={styles.label}> <FontAwesomeIcon icon={faHourglassHalf} className={styles.iconStype} />Status</div>
-                            <span className={`${styles.statusBg} ${styles[status]}`}>{formatStatus(status)} </span>
+                            <span className={`${styles.value} ${styles[status]}`}>{formatStatus(status)} </span>
                         </div>
                     </div>
 

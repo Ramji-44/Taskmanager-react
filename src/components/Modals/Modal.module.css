@@ -275,68 +275,23 @@
     flex-wrap: wrap;
 }
 
-.priorityBg, .statusBg {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5em 1em;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 700;
-}
-
 .iconName, .iconEmail, .iconDate, .iconTime, .iconPrior, .iconHours, .iconUrl, .iconPro, .iconTType, .iconStype, .iconTask, .iconDes {
     margin-right: 0.5em;
     font-size: 18px;
 }
 
-.iconName {
-    color: #0841fd;
-}
-
-.iconEmail {
-    color: #48b3f1
-}
-
-.iconDate {
-    color: #93da97
-}
-
-.iconTime {
-    color: #4ed14e
-}
-
-.iconHours {
-    color: #da1616
-}
-
-.iconUrl {
-    color: #648de4
-}
-
-.iconStype {
-    color: #009990;
-}
-
-.iconPrior {
-    color: #f17c5e;
-}
-
-.iconPro {
-    color: #074799;
-}
-
-.iconTType {
-    color: #ff5555;
-}
-
-.iconDes {
-    color: #006a67;
-}
-
-.iconTask {
-    color: #57b0e4;
-}
+.iconName { color: #0841fd; }
+.iconEmail { color: #48b3f1; }
+.iconDate { color: #93da97; }
+.iconTime { color: #4ed14e; }
+.iconHours { color: #da1616;}
+.iconUrl { color: #648de4; }
+.iconStype { color: #009990; }
+.iconPrior { color: #f17c5e; }
+.iconPro { color: #074799; }
+.iconTType { color: #ff5555; }
+.iconDes { color: #006a67; }
+.iconTask { color: #57b0e4; }
 
 /* animation */
 @keyframes taskView {
@@ -350,36 +305,41 @@
         transform: scale(1);
     }
 }
-
-.high {
-    color: red;
-    border: 2px solid red;
+.high, .medium, .low, .pending, .inprogress, .completed {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    color: inherit;
+    font-weight: 600;
 }
 
-.medium {
-    color: var(--medium);
-    border: 2px solid var(--medium);
+/* dot */
+.high::before, .medium::before, .low::before, .pending::before, .inprogress::before, .completed::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 
-.low {
-    color: var(--low);
-    border: 2px solid var(--low);
-}
+.high { color: red; }
+.high::before { background: red; }
 
-.pending {
-    color: var(--medium);
-    border: 2px solid var(--medium);
-}
+.medium { color: var(--medium); }
+.medium::before { background: var(--medium); }
 
-.inprogress {
-    color: var(--highlight);
-    border: 2px solid var(--highlight);
-}
+.low { color: var(--low); }
+.low::before { background: var(--low); }
 
-.completed {
-    color: var(--low);
-    border: 2px solid green;
-}
+.pending { color: var(--medium); }
+.pending::before { background: var(--medium); }
+
+.inprogress { color: var(--highlight); }
+.inprogress::before { background: var(--highlight); }
+
+.completed { color: var(--low); }
+.completed::before { background: green; }
 
 
 @media (min-width: 1025px) and (max-width: 1167px) {
@@ -414,7 +374,7 @@
     .priorStatuscontainer, .timeAndHours {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        gap: 0.5rem;
     }
 
     .priorStatuscontainer .fields, .timeAndHours .fields {
@@ -425,6 +385,9 @@
         height: fit-content;
     }
 
+    .rightBox .label{
+        width: 160px;
+    }
     .rightBox .value {
         width: auto;
     }
@@ -526,7 +489,12 @@
         flex-direction: column;
         gap: 0.8rem;
     }
-
+    .timeAndHours .fields {
+        margin: 0rem;
+}
+    .timeAndHours .fields:last-child {
+        margin: 0;
+}
     .descriptionField .label {
         margin-bottom: 0.5rem;
     }
