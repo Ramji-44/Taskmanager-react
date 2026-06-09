@@ -29,8 +29,7 @@ function urlRegEx(prourl) {
     return urlFormat.test(prourl)
 }
 
-
-export default function validateForm(data) {
+export function validateForm(data) {
 
     const errors = {}
 
@@ -135,9 +134,32 @@ export default function validateForm(data) {
     else if (data.statusType === "pending" && Number(data.progress) !== 0) {
         errors.progress = "Pending tasks must have 0% progress."
     }
-    else if (data.statusType === "in progress" && Number(data.progress) === 100) {
+    else if (data.statusType === "inprogress" && Number(data.progress) === 100) {
         errors.progress = "In Progress tasks cannot have 100% progress."
     }
 
     return errors
+}
+
+// backEnd Error handler reuse for createTask, updateTask
+
+export function handleTaskError(error, setErrors, formRef) {
+    if (error.message === "Task already exists") {
+        const firstError = "taskName"
+        setErrors({ taskName: "Task already exists" })
+
+        requestAnimationFrame(() => {
+            const input = formRef.current?.querySelector(`[name="${firstError}"]`)
+
+            if (input) {
+                input.focus()
+                input.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                })
+            }
+        })
+        return true
+    }
+    return false
 }
