@@ -11,7 +11,7 @@ import { handleTaskError } from "../../utils/validation.js"
 import { emptyTask } from "../../utils/helper.js"
 
 
-function Form({ refreshTasks, setToast }) {
+function CreateForm({ refreshTasks, setToast }) {
 
     const { data, errors, setErrors, formRef, handleChange, handleReset, validate } = useTaskForm(emptyTask)
 
@@ -191,4 +191,4 @@ function Form({ refreshTasks, setToast }) {
     )
 }
 
-export default Form
+export default CreateForm
