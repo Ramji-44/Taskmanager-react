@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Form from "../components/Form/Form"
+import CreateForm from "../components/Form/CreateForm"
 import Tasks from "../components/Tasks/Tasks"
 import Toast from "../components/Toast/Toast"
 import styles from "./Pages.module.css"
@@ -69,7 +69,7 @@ function Dashboard() {
     return (
         <>
             <div className={styles.formSection}>
-                <Form refreshTasks={fetchTasks} setToast={setToast} />
+                <CreateForm refreshTasks={fetchTasks} setToast={setToast} />
             </div>
 
             <div className={styles.tasksSection}>
