@@ -4,7 +4,7 @@ import { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons"
 
-function Tasks({ tasks = [], onEdit, onDelete, onView}) {
+function Tasks({ tasks = [], onEdit, onDelete, onView }) {
 
     const [activeColor, setActiveColor] = useState("all")  // active color for filter buttons
 
@@ -42,8 +42,8 @@ function Tasks({ tasks = [], onEdit, onDelete, onView}) {
 
             <div className={styles.scrollBar}>
                 <div className={styles.taskCards}>
-                {filterTasks.map(task => (<TaskCards key={task.id} task={task} onEdit={onEdit} onDelete={onDelete} onView={onView} />))}
-            </div>
+                    {filterTasks.length === 0 ? (<p className={styles.noTasks}> No Task Found</p>) : (filterTasks.map(task => (<TaskCards key={task.id} task={task} onEdit={onEdit} onDelete={onDelete} onView={onView} />)))}
+                </div>
             </div>
 
         </section>
