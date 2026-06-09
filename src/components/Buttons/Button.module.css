@@ -1,13 +1,13 @@
 .taskButtons {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     margin: 0em;
     padding: 0 1.2em;
     gap: 1em;
 }
 
-.taskButtons button {
+.taskButtons button, .editTaskButtons button {
     border: none;
     border-radius: 8px;
     font-weight: 600;
@@ -18,11 +18,13 @@
     gap: 0.3em;
     transition: 0.2s ease;
     padding: 1.2em 0.5em;
+    width: fit-content;
+    min-width: unset;
+    padding: 1.2em;
 }
 
 .createBtn,
 .updateBtn {
-    width: 45%;
     padding: 1em 0;
     color: white;
     background-color: var(--highlight);
@@ -35,7 +37,6 @@
 
 .resetBtn,
 .cancelBtn {
-    width: 30%;
     padding: 1em 0;
     color: black;
     background-color: rgb(231, 231, 231);
@@ -50,21 +51,22 @@
 .icon {
     font-size: 1.2em;
 }
+.editTaskButtons{
+    gap: 1em;
+}
+.updateBtn{
+    margin-right: 0.5em;
+}
+
 
 @media (min-width: 601px) and (max-width: 1000px) {
     .taskButtons {
-        gap: 2em;
+        gap: 1em;
         justify-content: center;
     }
     .taskButtons button{
         margin: 0;
-        padding: 1.2em 0.5em;
-    }
-    .createBtn, .updateBtn{
-        width: 130px;
-    }
-    .resetBtn,.cancelBtn{
-        width: 100px;
+        padding: 1.2em 0.8em;
     }
 }
 
@@ -95,14 +97,11 @@
     }
 
     .taskButtons button{
-        padding: 1.2em 0.5em;
+        padding: 1.2em 0.8em;
     }
-    .createBtn,.updateBtn {
-        width: 130px;
-    }
-
-    .resetBtn,.cancelBtn {
-        width: 90px;
-        padding: 0.9em 0;
+    .editTaskButtons button{
+        width: fit-content;
+        max-width: unset;
+        padding: 1em 0.5em;
     }
 }
