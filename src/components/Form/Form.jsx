@@ -1,106 +1,51 @@
 import styles from "./Form.module.css"
-import { useState, useEffect } from "react"
 import CustomInput from "./CustomInput.jsx"
-import CustomButton from "../Buttons/CustomButton"
+import CustomButton from "../Buttons/CustomButton.jsx"
 import buttonStyles from "../Buttons/Button.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClipboardList, faCheck, faXmark } from "@fortawesome/free-solid-svg-icons"
-import Validate from "./CustomValidation.jsx"
-import validateForm from "../../utils/validation.js"
-import { createTask, updateTask } from "../../services/service.js"
-
-const initialData = {
-    taskName: "",
-    assigneeName: "",
-    assigneeEmail: "",
-    dueDate: "",
-    dueTime: "",
-    hours: "",
-    url: "",
-    description: "",
-    progress: 0,
-    priority: "",
-    taskType: [],
-    statusType: ""
-}
-
-function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setToast }) {
-    const [data, setData] = useState(selectedTaskData || initialData)
-
-    const [errors, setErrors] = useState({})
-
-    useEffect(() => {
-        if (mode === "edit" && selectedTaskData?.id) {
-            setData(selectedTaskData)
-        }
-        else {
-            setData(initialData)  // clear form, when edit & delete the same task
-        }
-        setErrors({})   // clear validation error
-    }, [selectedTaskData, mode])
+import { faClipboardList, faCheck, faXmark, faCircleCheck } from "@fortawesome/free-solid-svg-icons"
+import ValidateMsg from "./CustomValidation.jsx"
+import { createTask } from "../../services/service.js"
+import { useTaskForm } from "../../Hooks/useTaskForm.jsx"
+import { handleTaskError } from "../../utils/validation.js"
+import { emptyTask } from "../../utils/helper.js"
 
 
-    function handleChange(e) {
-        const { name, value, type, checked } = e.target
-        setData((prev) => {
-            if (type === "checkbox") {
-                const updatedTaskType = checked ? [...prev.taskType, value] : prev.taskType.filter((item) => item !== value)
+function Form({ refreshTasks, setToast }) {
 
-                return { ...prev, taskType: updatedTaskType }
-            }
-            // other inputs
-            return { ...prev, [name]: value }
-        })
-        setErrors(prev => ({ ...prev, [name]: "" }))
-    }
+    const { data, errors, setErrors, formRef, handleChange, handleReset, validate } = useTaskForm(emptyTask)
 
     function handleSubmit(e) {
         e.preventDefault()
 
-        const validationErrors = validateForm(data)
-
-        if (Object.keys(validationErrors).length > 0) {
-            const firstError = Object.keys(validationErrors)[0]
-
-            setErrors({ [firstError]: validationErrors[firstError] })
-
-            document.querySelector(`[name="${firstError}"]`)?.focus()
-            return
-        }
-
-        const taskAction = mode === "edit" ? updateTask(data) : createTask(data)
-        taskAction.then((result) => {
+         if (validate()) return // validate function 
+        
+        const taskAction = createTask(data)   // POST request
+        taskAction.then(() => {
             handleReset()
             refreshTasks()
 
-            setToast({ visible: true, message: mode === "edit" ? "Task Updated Successfully" : "Task Created Successfully", type: mode === "edit" ? "update" : "success" })
+            setToast({ visible: true, message: "Task Created Successfully", type: "success" })
         })
             .catch((error) => {
-                if (error.message === "Task already exists") {   // backend error
-                    setErrors({
-                        taskName: "Task already exists"
-                    })
-                    document.querySelector('[name="taskName"]')?.focus()
-                    return
-                }
+                handleTaskError(error, setErrors, formRef) // backend Error
             })
     }
 
-    function handleReset() {
-        setErrors({})
-        setData(initialData)
-        if (mode === "edit") {
-            resetEdit()
-        }
-    }
-
     return (
-        <form className={styles.taskform} onSubmit={handleSubmit} noValidate>
+        <form ref={formRef} className={styles.taskform} onSubmit={handleSubmit} noValidate>
 
-            <h3 className={styles.formTitle}>
-                <FontAwesomeIcon icon={faClipboardList} className={styles.titleIcon} />
-                {mode === "edit" ? " Edit Task" : "Create New Task"}
-            </h3>
+            <div className={styles.taskHeader}>
+                <h3 className={styles.formTitle}>
+                    <FontAwesomeIcon icon={faClipboardList} className={styles.titleIcon} />
+                    Create New Task
+                </h3>
+
+                <div className={styles.submitResetBtns}>
+                    <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className={styles.tick} /></button>
+                    <button type="button" onClick={handleReset}><FontAwesomeIcon icon={faXmark} className={styles.xmark} /></button>
+                </div>
+            </div>
 
             <div className={styles.box}>
                 <CustomInput
@@ -112,7 +57,7 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setT
                 />
 
                 <div className={styles.errorMessage}>
-                    {errors.taskName && <Validate message={errors.taskName} />}
+                    {errors.taskName && <ValidateMsg message={errors.taskName} />}
                 </div>
             </div>
 
@@ -120,29 +65,28 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setT
                 <CustomInput
                     id="assigneeName" name="assigneeName" placeholder="Assignee Name *" value={data.assigneeName} onChange={handleChange} />
                 <div className={styles.errorMessage}>
-                    {errors.assigneeName && <Validate message={errors.assigneeName} />}
+                    {errors.assigneeName && <ValidateMsg message={errors.assigneeName} />}
                 </div>
             </div>
 
             <div className={styles.box}>
                 <CustomInput id="assigneeEmail" name="assigneeEmail" type="email" placeholder="Assignee Email *" value={data.assigneeEmail} onChange={handleChange} />
                 <div className={styles.errorMessage}>
-                    {errors.assigneeEmail && <Validate message={errors.assigneeEmail} />}
+                    {errors.assigneeEmail && <ValidateMsg message={errors.assigneeEmail} />}
                 </div>
             </div>
-
 
             <div className={styles.inputBox}>
                 <CustomInput id="dueDate" name="dueDate" type="date" label="Due Date*" value={data.dueDate} onChange={handleChange} min={new Date().toISOString().split("T")[0]} />
                 <div className={styles.errorMessage}>
-                    {errors.dueDate && <Validate message={errors.dueDate} />}
+                    {errors.dueDate && <ValidateMsg message={errors.dueDate} />}
                 </div>
             </div>
 
             <div className={styles.inputBox}>
                 <CustomInput id="dueTime" name="dueTime" type="time" label="Due Time*" value={data.dueTime} onChange={handleChange} />
                 <div className={styles.errorMessage}>
-                    {errors.dueTime && <Validate message={errors.dueTime} />}
+                    {errors.dueTime && <ValidateMsg message={errors.dueTime} />}
                 </div>
             </div>
 
@@ -156,14 +100,14 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setT
                 </select>
 
                 <div className={styles.errorMessage}>
-                    {errors.priority && <Validate message={errors.priority} />}
+                    {errors.priority && <ValidateMsg message={errors.priority} />}
                 </div>
             </div>
 
             <div className={styles.inputBox}>
                 <CustomInput id="hours" name="hours" type="number" label="Estimated Hours*" value={data.hours} onChange={handleChange} />
                 <div className={styles.errorMessage}>
-                    {errors.hours && <Validate message={errors.hours} />}
+                    {errors.hours && <ValidateMsg message={errors.hours} />}
                 </div>
             </div>
 
@@ -171,14 +115,14 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setT
                 <CustomInput
                     id="url" name="url" type="url" placeholder="Project URL*" value={data.url} onChange={handleChange} />
                 <div className={styles.errorMessage}>
-                    {errors.url && <Validate message={errors.url} />}
+                    {errors.url && <ValidateMsg message={errors.url} />}
                 </div>
             </div>
 
             <div className={styles.box}>
                 <textarea name="description" placeholder="Task Description *" value={data.description} onChange={handleChange} maxLength={500} />
                 <div className={styles.errorMessage}>
-                    {errors.description && <Validate message={errors.description} />}
+                    {errors.description && <ValidateMsg message={errors.description} />}
                 </div>
             </div>
 
@@ -189,7 +133,7 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setT
                     <CustomInput id="progress" name="progress" type="range" min="0" max="100" step="1" value={data.progress} onChange={handleChange} />
                     <p>{data.progress}%</p>
                     <div className={styles.errorMessage}>
-                        {errors.progress && <Validate message={errors.progress} />}
+                        {errors.progress && <ValidateMsg message={errors.progress} />}
                     </div>
                 </div>
             </div>
@@ -207,7 +151,7 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setT
                 </div>
 
                 <div className={styles.errorMessage}>
-                    {errors.taskType && <Validate message={errors.taskType} />}
+                    {errors.taskType && <ValidateMsg message={errors.taskType} />}
                 </div>
             </div>
 
@@ -222,22 +166,22 @@ function Form({ mode = "create", selectedTaskData, refreshTasks, resetEdit, setT
                 </div>
 
                 <div className={styles.errorMessage}>
-                    {errors.statusType && <Validate message={errors.statusType} />}
+                    {errors.statusType && <ValidateMsg message={errors.statusType} />}
                 </div>
             </div>
 
             <div className={buttonStyles.taskButtons}>
                 <CustomButton
-                    text={mode === "edit" ? "Update Task" : "Create Task"}
+                    text="Create Task"
                     type="submit"
-                    className={mode === "edit" ? "updateBtn" : "createBtn"}
+                    className="createBtn"
                     icon={faCheck}
                 />
 
                 <CustomButton
-                    text={mode === "edit" ? "Cancel" : "Reset"}
+                    text="Reset"
                     type="button"
-                    className={mode === "edit" ? "cancelBtn" : "resetBtn"}
+                    className="resetBtn"
                     icon={faXmark}
                     onClick={handleReset}
                 />
