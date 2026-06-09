@@ -30,11 +30,17 @@
     min-height: 100%;
 }
 
-.emptyState {
+.noTaskContainer {
     margin: 20%;
     text-align: center;
 }
-
+.listCheckIcon{
+    font-size: 4em;
+    color: #3df3ad;
+}
+.noTaskContainer h2{
+    font-style: italic;
+}
 /* Not Found page  */
 .container{
     display: grid;
