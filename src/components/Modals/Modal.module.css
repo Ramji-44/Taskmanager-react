@@ -139,12 +139,9 @@
 }
 
 .leftBox {
-    max-height: 350px;
+    height: 350px;
     padding: 1em;
-    overflow: hidden;
     padding: 0.5em 1em;
-    overflow-y: auto;
-    scrollbar-width: thin;
     border-radius: 10px;
     border: 1px solid var(--bordercolor);
 }
@@ -167,11 +164,13 @@
 /* description */
 .descriptionField {
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: flex-start; 
 }
 
 .descriptionField .descriptionBox {
-    min-height: fit-content;
+    height: 120px;
+    overflow-y: auto;
+    scrollbar-width: thin;   
     background: #ececee;
     border-radius: 10px;
     padding: 0.5em;
@@ -514,5 +513,10 @@
 
     .descriptionField .descriptionBox {
         font-size: 0.95rem;
+    }
+
+    /* edit Task modal */
+    .editTaskModal{
+        width: 80%;
     }
 }
