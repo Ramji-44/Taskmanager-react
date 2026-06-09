@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import './index.css'
 import App from './App.jsx'
+import NotFound from './pages/NotFound.jsx'
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <App />
+  },
+  {
+    path : "*",
+    element : <NotFound/>
   }
 ])
 
