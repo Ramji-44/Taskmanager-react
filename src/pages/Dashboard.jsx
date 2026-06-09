@@ -2,23 +2,21 @@ import { useEffect, useState } from "react"
 import Form from "../components/Form/Form"
 import Tasks from "../components/Tasks/Tasks"
 import Toast from "../components/Toast/Toast"
-import styles from "./Dashboard.module.css"
+import styles from "./Pages.module.css"
 import DeleteModal from "../components/Modals/DeleteModal"
 import ViewTaskModal from "../components/Modals/ViewTaskModal"
+import EditTaskModal from "../components/Modals/EditTaskModal"
 import { getTasks, removeTask } from "../services/service"
 
 function Dashboard() {
 
     const [tasks, setTasks] = useState([])
-    const [selectedTask, setSelectedTask] = useState(null)
-    const [mode, setMode] = useState("create")
-
-    const [deleteTask, setDeleteTask] = useState(null)
-
-    const [toast, setToast] = useState({ visible: false, message: "", type: "" })
     const [viewTask, setViewTask] = useState(null)
+    const [editTask, setEditTask] = useState(null)
+    const [deleteTask, setDeleteTask] = useState(null)
+    const [toast, setToast] = useState({ visible: false, message: "", type: "" })
 
-    function fetchTasks() {
+    function fetchTasks() {   // GET request
         getTasks()
             .then((data) => {
                 setTasks(data.reverse())
@@ -31,13 +29,7 @@ function Dashboard() {
     }, [])
 
     function handleEdit(task) {
-        setSelectedTask(task)
-        setMode("edit")
-    }
-
-    function resetEdit() {
-        setSelectedTask(null)
-        setMode("create")
+        setEditTask(task)
     }
 
     function handleDelete(task) {
@@ -62,8 +54,8 @@ function Dashboard() {
             .then(() => {
                 setTasks((prev) => prev.filter((task) => task.id !== deleteTask.id))
 
-                if (selectedTask?.id === deleteTask.id) {    // if same task is being edited, and also deleted- clears form
-                    resetEdit()
+                if (editTask?.id === deleteTask.id) {    // if same task is being edited, and also deleted- clears form
+                    setEditTask(null)
                 }
                 setDeleteTask(null)
 
@@ -75,17 +67,22 @@ function Dashboard() {
     return (
         <>
             <div className={styles.formSection}>
-                <Form mode={mode} selectedTaskData={selectedTask} refreshTasks={fetchTasks} resetEdit={resetEdit} setToast={setToast} />
+                <Form refreshTasks={fetchTasks} setToast={setToast} />
             </div>
 
             <div className={styles.tasksSection}>
 
                 {tasks.length === 0 ? (<h2 className={styles.emptyState}>No tasks found</h2>) : (<Tasks tasks={tasks} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} />)}
 
+                {editTask && (<div className={styles.overlay}>
+                    <EditTaskModal task={editTask} onClose={() => setEditTask(null)} refreshTasks={fetchTasks} setToast={setToast} />
+                </div>
+                )}
+
                 {(deleteTask || viewTask) && (
                     <div className={styles.overlay}>
-                        {deleteTask && ( <DeleteModal name={deleteTask.taskName} onCancel={cancelDelete} onConfirm={confirmDelete} /> )}
-                        {viewTask && ( <ViewTaskModal onClose={setViewTask} taskName={viewTask.taskName} status={viewTask.statusType} statusType={viewTask.statusType} priority={viewTask.priority} taskType={viewTask.taskType} assigneeName={viewTask.assigneeName} assigneeEmail={viewTask.assigneeEmail} dueDate={viewTask.dueDate} dueTime={viewTask.dueTime} hours={viewTask.hours} url={viewTask.url} progress={viewTask.progress} description={viewTask.description} /> )}
+                        {deleteTask && (<DeleteModal name={deleteTask.taskName} onCancel={cancelDelete} onConfirm={confirmDelete} />)}
+                        {viewTask && (<ViewTaskModal onClose={setViewTask} taskName={viewTask.taskName} status={viewTask.statusType} priority={viewTask.priority} taskType={viewTask.taskType} assigneeName={viewTask.assigneeName} assigneeEmail={viewTask.assigneeEmail} dueDate={viewTask.dueDate} dueTime={viewTask.dueTime} hours={viewTask.hours} url={viewTask.url} progress={viewTask.progress} description={viewTask.description} />)}
                     </div>
                 )}
             </div >
