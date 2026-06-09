@@ -357,6 +357,10 @@
         font-size: 0.9rem;
         padding: 0.1rem;
     }
+    .noTasks{
+        display: block;
+        margin: 10% 0;
+    }
 }
 
 @media(max-width: 350px) {
