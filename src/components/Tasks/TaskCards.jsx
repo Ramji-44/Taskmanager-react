@@ -1,7 +1,7 @@
 import styles from "./Tasks.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrash, faCalendarDays, faUser } from "@fortawesome/free-solid-svg-icons"
-import { formatStatus, formatDate } from "../../utils/displayFormat"
+import { formatStatus, formatDate } from "../../utils/helper"
 
 function TaskCards({ task, onEdit, onDelete, onView }) {
     
