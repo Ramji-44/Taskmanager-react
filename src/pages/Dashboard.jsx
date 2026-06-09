@@ -7,6 +7,8 @@ import DeleteModal from "../components/Modals/DeleteModal"
 import ViewTaskModal from "../components/Modals/ViewTaskModal"
 import EditTaskModal from "../components/Modals/EditTaskModal"
 import { getTasks, removeTask } from "../services/service"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faListCheck } from "@fortawesome/free-solid-svg-icons"
 
 function Dashboard() {
 
@@ -72,7 +74,7 @@ function Dashboard() {
 
             <div className={styles.tasksSection}>
 
-                {tasks.length === 0 ? (<h2 className={styles.emptyState}>No tasks found</h2>) : (<Tasks tasks={tasks} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} />)}
+                {tasks.length === 0 ? (<div className={styles.noTaskContainer}> <FontAwesomeIcon icon={faListCheck} className={styles.listCheckIcon} /><h2>No Tasks Yet</h2></div>) : (<Tasks tasks={tasks} onEdit={handleEdit} onDelete={handleDelete} onView={handleView} />)}
 
                 {editTask && (<div className={styles.overlay}>
                     <EditTaskModal task={editTask} onClose={() => setEditTask(null)} refreshTasks={fetchTasks} setToast={setToast} />
