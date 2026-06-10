@@ -39,9 +39,15 @@ function emailRegEx(mail) {
 }
 
 // URL validation
-function urlRegEx(prourl) {
-    const urlFormat = /^(https?:\/\/|www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9]+)+([\/?#].*)?$/
-    return urlFormat.test(prourl)
+function urlRegEx(url) {
+    if (url.length > 2000) return "length"
+
+    const urlFormat = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/
+
+    if (!urlFormat.test(value)) return false
+    if (value.includes("..")) return false
+
+    return true
 }
 
 export function validateForm(data) {
@@ -125,11 +131,18 @@ export function validateForm(data) {
     }
 
     // URL
-    if (!data.url.trim()) {
-        errors.url = "Project URL is required."
+    const value = data.url.trim()
+    if (!value) {
+        errors.url = "Project URL is required"
     }
-    else if (!urlRegEx(data.url.trim())) {
-        errors.url = "Enter valid URL."
+    else {
+        const result = urlRegEx(value)
+        if (result === "length") {
+            errors.url = "URL must not exceed 2000 characters."
+        }
+        else if (!result) {
+            errors.url = "Enter valid URL."
+        }
     }
 
     // description
