@@ -44,8 +44,8 @@ function urlRegEx(url) {
 
     const urlFormat = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/
 
-    if (!urlFormat.test(value)) return false
-    if (value.includes("..")) return false
+    if (!urlFormat.test(url)) return false
+    if (url.includes("..")) return false
 
     return true
 }
