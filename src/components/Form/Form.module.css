@@ -154,6 +154,7 @@ textarea::placeholder {
     gap: 0.3em;
     margin: 0 0 0.5em;
     margin-right: 1.5em;
+    cursor: pointer;
 }
 
 /* autofill blue bg remove for input fields*/
