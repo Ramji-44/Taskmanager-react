@@ -552,14 +552,13 @@ input[type="checkbox"], input[type="radio"]{
         border: 1px solid var(--bordercolor);
     }
 
-    .priorStatuscontainer, .timeAndHours {
-        display: grid;
+    .priorStatuscontainer,
+    .timeAndHours {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
     }
-
-    .priorStatuscontainer .fields, .timeAndHours .fields {
-        width: 100%;
+    
+    .fields {
+        grid-template-columns: 130px 1fr;
     }
 
     .rightBox {
@@ -688,7 +687,15 @@ input[type="checkbox"], input[type="radio"]{
         flex-wrap: wrap;
         gap: 0.5rem;
     }
-
+    .taskTypes {
+        display: flex;
+        align-items: center;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    .taskTypes .label{
+        width: 140px;
+    }
     .taskUrl a {
         word-break: break-all;
     }
