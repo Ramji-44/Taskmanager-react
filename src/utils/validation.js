@@ -88,11 +88,14 @@ export function validateForm(data) {
     }
 
     // hours
-    if (!data.hours) {
+    if (!String(data.hours).trim()) {
         errors.hours = "Enter estimated hours."
     }
-    else if (Number(data.hours) <= 0) {
-        errors.hours = "Hours must be above 0."
+    else if (!Number.isInteger(Number(data.hours))) {
+        errors.hours = "Hours must be a whole number."
+    }
+    else if (Number(data.hours) < 1 || Number(data.hours) > 8000) {
+        errors.hours = "Hours must be between 1 and 8000."
     }
 
     // URL
