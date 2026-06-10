@@ -19,8 +19,23 @@ function nameRegEx(name) {
 
 // email validation
 function emailRegEx(mail) {
-    const emailFormat = /^[a-zA-Z0-9]+([._%+-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/
-    return emailFormat.test(mail)
+    const value = mail.trim()
+
+    if (value.length > 250) return "length"
+
+    const parts = value.split("@")
+    if (parts.length !== 2) return false
+
+    const [local, domain] = parts
+
+    if (!local || !domain) return false
+    if (local.length > 64) return "localLength"
+    if (domain.length > 200) return "domainLength"
+    if (value.includes("..")) return false
+    if (!domain.includes(".")) return false
+
+    const emailFormat = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/
+    return emailFormat.test(value)
 }
 
 // URL validation
@@ -59,10 +74,21 @@ export function validateForm(data) {
     }
 
     // email
+    const result = emailRegEx(data.assigneeEmail.trim())
+
     if (!data.assigneeEmail.trim()) {
         errors.assigneeEmail = "Email is required."
     }
-    else if (!emailRegEx(data.assigneeEmail.trim())) {
+    else if (result === "length") {
+        errors.assigneeEmail = "Email must not exceed 250 characters."
+    }
+    else if (result === "localLength") {
+        errors.assigneeEmail = "Email local part must not exceed 64 characters."
+    }
+    else if (result === "domainLength") {
+        errors.assigneeEmail = "Email domain is too long."
+    }
+    else if (!result) {
         errors.assigneeEmail = "Enter valid Email."
     }
 
