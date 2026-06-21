@@ -31,10 +31,8 @@ function emailRegEx(mail) {
     if (!local || !domain) return false
     if (local.length > 64) return "localLength"
     if (domain.length > 200) return "domainLength"
-    if (value.includes("..")) return false
-    if (!domain.includes(".")) return false
 
-    const emailFormat = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/
+    const emailFormat =  /^[a-zA-Z0-9](?:[a-zA-Z0-9._%+-]*[a-zA-Z0-9])?@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/
     return emailFormat.test(value)
 }
 
