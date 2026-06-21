@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useRef } from "react"
 import { validateForm } from "../utils/validation"
 import { emptyTask } from "../utils/helper"
 
@@ -7,12 +7,6 @@ export function useTaskForm(initialData) {
     const [data, setData] = useState(initialData)
     const [errors, setErrors] = useState({})
     const formRef = useRef(null)
-
-    useEffect(() => {   // update form, when different task is selected
-        setData(initialData)
-        setErrors({})
-    }, [initialData?.id])
-
 
     function handleChange(e) {
         const { name, value, type, checked } = e.target
