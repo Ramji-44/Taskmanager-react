@@ -6,10 +6,6 @@ import NotFound from './pages/NotFound.jsx'
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Navigate to="/dashboard" />
-  },
-  {
     path: "/dashboard",
     element: <App />
   },
