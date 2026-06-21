@@ -6,7 +6,7 @@ import { faCircleCheck } from "@fortawesome/free-solid-svg-icons"
 
 function Tasks({ tasks = [], onEdit, onDelete, onView }) {
 
-    const [activeColor, setActiveColor] = useState("all")  // active color for filter buttons
+    const [priorityBtn, setPriorityBtn] = useState("all")  // active filter buttons
 
     const displayTasks = tasks
 
@@ -16,7 +16,7 @@ function Tasks({ tasks = [], onEdit, onDelete, onView }) {
 
     const lowCount = displayTasks.filter(task => task.priority === "low").length
 
-    const filterTasks = activeColor === "all" ? displayTasks : displayTasks.filter((task) => task.priority === activeColor)
+    const filterTasks = priorityBtn === "all" ? displayTasks : displayTasks.filter((task) => task.priority === priorityBtn)
 
     return (
 
@@ -29,13 +29,13 @@ function Tasks({ tasks = [], onEdit, onDelete, onView }) {
                     Active Tasks</h3>
 
                 <div className={styles.filterBtns}>
-                    <button className={activeColor === "all" ? styles.active : ""} onClick={() => setActiveColor("all")}>All<span>{displayTasks.length}</span></button>
+                    <button className={priorityBtn === "all" ? styles.active : ""} onClick={() => setPriorityBtn("all")}>All<span>{displayTasks.length}</span></button>
 
-                    <button className={activeColor === "high" ? styles.active : ""} onClick={() => setActiveColor("high")} >High<span>{highCount}</span></button>
+                    <button className={priorityBtn === "high" ? styles.active : ""} onClick={() => setPriorityBtn("high")} >High<span>{highCount}</span></button>
 
-                    <button className={activeColor === "medium" ? styles.active : ""} onClick={() => setActiveColor("medium")}>Medium<span>{mediumCount}</span></button>
+                    <button className={priorityBtn === "medium" ? styles.active : ""} onClick={() => setPriorityBtn("medium")}>Medium<span>{mediumCount}</span></button>
 
-                    <button className={activeColor === "low" ? styles.active : ""} onClick={() => setActiveColor("low")}>Low<span>{lowCount}</span></button>
+                    <button className={priorityBtn === "low" ? styles.active : ""} onClick={() => setPriorityBtn("low")}>Low<span>{lowCount}</span></button>
 
                 </div>
             </div>
