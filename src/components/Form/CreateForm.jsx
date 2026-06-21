@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClipboardList, faCheck, faXmark, faCircleCheck } from "@fortawesome/free-solid-svg-icons"
 import ValidateMsg from "./CustomValidation.jsx"
 import { createTask } from "../../services/service.js"
-import { useTaskForm } from "../../Hooks/useTaskForm.jsx"
+import { useTaskForm } from "../../Hooks/useTaskForm.js"
 import { handleTaskError } from "../../utils/validation.js"
 import { emptyTask } from "../../utils/helper.js"
 

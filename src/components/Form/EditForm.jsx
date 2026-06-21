@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClipboardList, faCheck, faXmark } from "@fortawesome/free-solid-svg-icons"
 import ValidateMsg from "./CustomValidation"
 import { updateTask } from "../../services/service"
-import { useTaskForm } from "../../Hooks/useTaskForm.jsx"
+import { useTaskForm } from "../../Hooks/useTaskForm.js"
 import { handleTaskError } from "../../utils/validation.js"
 
 function EditForm({ task, refreshTasks, onClose, setToast }) {
