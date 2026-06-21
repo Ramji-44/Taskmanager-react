@@ -1,6 +1,6 @@
 import styles from "./Modal.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPenToSquare, faTrash, faCircleUser, faEnvelope, faCalendarDays, faClock, faFlag, faStopwatch, faLink, faChartLine, faLayerGroup, faHourglassHalf, faAlignLeft, faColonSign, faFileLines, faXmark } from "@fortawesome/free-solid-svg-icons"
+import {   faCircleUser, faEnvelope, faCalendarDays, faClock, faFlag, faStopwatch, faLink, faChartLine, faLayerGroup, faHourglassHalf, faAlignLeft, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { formatPriority, formatTaskType, formatStatus, formatDate } from "../../utils/helper"
 
 export default function ViewTaskModal({ onClose, taskName, status, priority, taskType, assigneeName, assigneeEmail, dueDate, dueTime, hours, url, progress, description }) {
