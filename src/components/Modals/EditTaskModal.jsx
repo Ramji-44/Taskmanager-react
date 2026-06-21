@@ -3,14 +3,14 @@ import EditForm from "../Form/EditForm"
 
 function EditTaskModal({ task, onClose, refreshTasks, setToast }) {
 
-    return(
+    return (
         <div className={styles.editTaskModal}>
             {task && (               // render form, when task is selected
-                <EditForm task={task}
-                 refreshTasks={refreshTasks} 
-                 onClose={onClose} 
-                 setToast={setToast} />
-             )}
+                <EditForm task={task} key={task.id}
+                    refreshTasks={refreshTasks}
+                    onClose={onClose}
+                    setToast={setToast} />
+            )}
         </div>
     )
 }
