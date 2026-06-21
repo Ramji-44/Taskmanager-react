@@ -7,7 +7,7 @@ function NotFound() {
             <div className={styles.NotFound}>
                 <p>404</p>
                 <p>Page Not Found</p>
-                <Link to="/"><button type="button">Go To DashBoard</button></Link>
+                <Link to="/dashboard"><button type="button">Go To DashBoard</button></Link>
             </div>
         </div>
     )
