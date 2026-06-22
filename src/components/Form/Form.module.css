@@ -16,23 +16,22 @@
     display: flex;
     gap: 0.5em;
 }
-.submitResetBtns button{
+.submitResetBtns abbr button{
     font-size: 18px;
     padding: 0.3em;
     border: none;
-    background: var();
     border-radius: 10px;
     cursor: pointer;
     transition: background 0.3s ease;
 }
-.submitResetBtns button:nth-child(1){
+.submitResetBtns abbr:first-child button{
     color: var(--low);
     &:hover{
         background: var(--low);
         color: var(--white);
     }
 }
-.submitResetBtns button:nth-child(2){
+.submitResetBtns abbr:last-child button{
     color: #D51C39;
     &:hover{
         background: #CB2957;

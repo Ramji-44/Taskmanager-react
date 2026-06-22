@@ -18,8 +18,8 @@ function CreateForm({ refreshTasks, setToast }) {
     function handleSubmit(e) {
         e.preventDefault()
 
-         if (validate()) return // validate function 
-        
+        if (validate()) return // validate function 
+
         const taskAction = createTask(data)   // POST request
         taskAction.then(() => {
             handleReset()
@@ -42,8 +42,8 @@ function CreateForm({ refreshTasks, setToast }) {
                 </h3>
 
                 <div className={styles.submitResetBtns}>
-                    <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className={styles.tick} /></button>
-                    <button type="button" onClick={handleReset}><FontAwesomeIcon icon={faXmark} className={styles.xmark} /></button>
+                    <abbr title="Submit"> <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className={styles.tick} /></button></abbr>
+                    <abbr title="Reset"><button type="button" onClick={handleReset}><FontAwesomeIcon icon={faXmark} className={styles.xmark} /></button></abbr>
                 </div>
             </div>
 
